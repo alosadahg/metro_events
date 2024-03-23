@@ -1,0 +1,27 @@
+.Header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px $left-right-pad;
+  background-color: $faded-blue;
+  color: white;
+
+  ul {
+    display: flex;
+    align-items: center;
+
+    li {
+      cursor: pointer;
+    }
+    li:first-child {
+      font-size: 1.1rem;
+    }
+    li:nth-child(2) {
+      margin-right: 15px;
+      margin-left: 20px;
+      font-size: 1.1rem;
+    }
+    li:nth-child(3) {
+      font-size: 2rem;
+    }
+  }
+}

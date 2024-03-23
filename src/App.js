@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./Styles/App.scss";
+import Header from "./Components/Common/Header";
+import PictureBox from "./Components/Main/PictureBox/PictureBox";
+import EventDiscovery from "./Components/Main/EventDiscovery/EventDiscovery";
 
-function App() {
+const App = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+
+      <main>
+        {/* note: main tag has zero padding/margin */}
+        <PictureBox />
+        <EventDiscovery /> {/*only if user not admi/organizer*/}
+      </main>
     </div>
   );
-}
+};
 
 export default App;
