@@ -13,7 +13,8 @@ const Registration = () => {
     firstName: '',
     lastName: '',
     email: '',
-    password: ''
+    password: '',
+    user_type: '',
   });
 
   const navigate = useNavigate();
@@ -53,7 +54,6 @@ const Registration = () => {
     }
   
     try {
-      // Check if the email already exists in the database
       const checkEmailResponse = await fetch(`http://localhost:8000/user?email=${email}`);
       const existingUserData = await checkEmailResponse.json();
       if (existingUserData && existingUserData.length > 0) {
@@ -61,7 +61,6 @@ const Registration = () => {
         return;
       }
   
-      // If the email doesn't exist, proceed with registration
       const response = await fetch('http://localhost:8000/user', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

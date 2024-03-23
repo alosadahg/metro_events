@@ -7,6 +7,14 @@
       "email": "justine.daugdaug@cit.edu",
       "password": "test",
       "user_type": "admin"
+    },
+    {
+      "id": "a99d",
+      "firstName": "Rada",
+      "lastName": "Alvarado",
+      "email": "rada@cit.edu",
+      "password": "test",
+      "user_type": "user"
     }
   ]
 }
