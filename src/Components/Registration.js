@@ -13,7 +13,8 @@ const Registration = () => {
     firstName: '',
     lastName: '',
     email: '',
-    password: ''
+    password: '',
+    user_type: '',
   });
 
   const navigate = useNavigate();
@@ -25,7 +26,8 @@ const Registration = () => {
       firstName: '',
       lastName: '',
       email: '',
-      password: ''
+      password: '',
+      user_type: 'user',
     });
   }, []);
 
@@ -39,7 +41,7 @@ const Registration = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
   
-    const { firstName, lastName, email, password } = formData;
+    const { firstName, lastName, email, password, user_type } = formData;
   
     if (!firstName || !lastName || !password) {
       setErrorMessage('Please fill in all fields.');
@@ -52,7 +54,6 @@ const Registration = () => {
     }
   
     try {
-      // Check if the email already exists in the database
       const checkEmailResponse = await fetch(`http://localhost:8000/user?email=${email}`);
       const existingUserData = await checkEmailResponse.json();
       if (existingUserData && existingUserData.length > 0) {
@@ -60,11 +61,10 @@ const Registration = () => {
         return;
       }
   
-      // If the email doesn't exist, proceed with registration
       const response = await fetch('http://localhost:8000/user', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ firstName, lastName, email, password }),
+        body: JSON.stringify({ firstName, lastName, email, password, user_type }),
       });
   
       if (!response.ok) {

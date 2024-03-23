@@ -5,21 +5,16 @@
       "firstName": "Justine",
       "lastName": "Daugdaug",
       "email": "justine.daugdaug@cit.edu",
-      "password": "test"
+      "password": "test",
+      "user_type": "admin"
     },
     {
-      "id": "e087",
+      "id": "a99d",
       "firstName": "Rada",
       "lastName": "Alvarado",
       "email": "rada@cit.edu",
-      "password": "test"
-    },
-    {
-      "id": "6342",
-      "firstName": "Lucky",
-      "lastName": "Jones",
-      "email": "luckyjones@cit.edu",
-      "password": "test"
+      "password": "test",
+      "user_type": "user"
     }
   ]
 }
