@@ -9,7 +9,7 @@ import Login from "./Components/Login.js";
 import Registration from "./Components/Registration.js";
 
 const App = () => {
-  const [isAuth, setIsAuth] = useState(true);
+  const [isAuth, setIsAuth] = useState(false);
   return (
     <div className="App">
       {isAuth && <Header />}
