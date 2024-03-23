@@ -25,7 +25,8 @@ const Registration = () => {
       firstName: '',
       lastName: '',
       email: '',
-      password: ''
+      password: '',
+      user_type: 'user',
     });
   }, []);
 
@@ -39,7 +40,7 @@ const Registration = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
   
-    const { firstName, lastName, email, password } = formData;
+    const { firstName, lastName, email, password, user_type } = formData;
   
     if (!firstName || !lastName || !password) {
       setErrorMessage('Please fill in all fields.');
@@ -64,7 +65,7 @@ const Registration = () => {
       const response = await fetch('http://localhost:8000/user', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ firstName, lastName, email, password }),
+        body: JSON.stringify({ firstName, lastName, email, password, user_type }),
       });
   
       if (!response.ok) {
