@@ -9,20 +9,23 @@ import Login from "./Components/Login.js";
 import Registration from "./Components/Registration.js";
 
 const App = () => {
-  const [isAuth, setIsAuth] = useState(false);
   return (
     <div className="App">
-      {isAuth && <Header />}
-      {isAuth && (
-        <main style={{ marginTop: `${!isAuth && "0px !important"}` }}>
-          {/* note: main tag has zero padding/margin */}
-          <PictureBox />
-          <EventDiscovery /> {/*only if user not admi/organizer*/}
-        </main>
-      )}
-
       <BrowserRouter>
         <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <Header />
+                <main>
+                  {/* note: main tag has zero padding/margin */}
+                  <PictureBox />
+                  <EventDiscovery /> {/*only if user not admi/organizer*/}
+                </main>
+              </>
+            }
+          />
           <Route path="/dashboard/:userId" element={<Dashboard />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Registration />} />
