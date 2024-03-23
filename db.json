@@ -13,6 +13,13 @@
       "lastName": "Alvarado",
       "email": "rada@cit.edu",
       "password": "test"
+    },
+    {
+      "id": "6342",
+      "firstName": "Lucky",
+      "lastName": "Jones",
+      "email": "luckyjones@cit.edu",
+      "password": "test"
     }
   ]
 }
