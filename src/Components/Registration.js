@@ -52,6 +52,15 @@ const Registration = () => {
     }
   
     try {
+      // Check if the email already exists in the database
+      const checkEmailResponse = await fetch(`http://localhost:8000/user?email=${email}`);
+      const existingUserData = await checkEmailResponse.json();
+      if (existingUserData && existingUserData.length > 0) {
+        setErrorMessage('Email is already registered.');
+        return;
+      }
+  
+      // If the email doesn't exist, proceed with registration
       const response = await fetch('http://localhost:8000/user', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -59,12 +68,7 @@ const Registration = () => {
       });
   
       if (!response.ok) {
-        const data = await response.json();
-        if (data.error && data.error === 'Email already registered') {
-          setErrorMessage('Email is already registered.');
-        } else {
-          throw new Error('Failed to register. Please try again later.');
-        }
+        throw new Error('Failed to register. Please try again later.');
       } else {
         setSuccessMessage('Registered successfully. Redirecting to login...');
         navigate('/login');
@@ -73,6 +77,7 @@ const Registration = () => {
       setErrorMessage(error.message);
     }
   };
+  
 
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
