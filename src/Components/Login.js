@@ -22,6 +22,12 @@ const Login = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (!email || !password) {
+      setError('Please enter both email and password');
+      return;
+    }
+
     try {
       const response = await fetch(`http://localhost:8000/user?email=${email}`);
       if (!response.ok) {
@@ -41,9 +47,6 @@ const Login = () => {
       setError('Failed to fetch user information. Please try again.');
     }
   };
-  
-  
-  
 
   return (
     <ThemeProvider theme={defaultTheme}>
