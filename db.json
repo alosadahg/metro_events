@@ -1,0 +1,18 @@
+{
+  "user": [
+    {
+      "id": "fbbf",
+      "firstName": "Justine",
+      "lastName": "Daugdaug",
+      "email": "justine.daugdaug@cit.edu",
+      "password": "test"
+    },
+    {
+      "id": "e087",
+      "firstName": "Rada",
+      "lastName": "Alvarado",
+      "email": "rada@cit.edu",
+      "password": "test"
+    }
+  ]
+}
