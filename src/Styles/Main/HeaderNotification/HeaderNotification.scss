@@ -9,7 +9,7 @@
       top: 30px;
       right: 0;
       z-index: 10;
-      width: 450px;
+      width: 490px;
       padding: 20px;
       border-radius: 10px;
       background-color: white;
@@ -21,6 +21,8 @@
 
         .see-all {
           color: $light-blue;
+          font-size: 1.1rem;
+          cursor: pointer;
         }
 
         p {
@@ -63,6 +65,10 @@
         margin: 10px 0;
         font-size: 1rem;
         cursor: pointer;
+
+        .title {
+          font-size: 1.2rem;
+        }
 
         .icon {
           font-size: 2rem;

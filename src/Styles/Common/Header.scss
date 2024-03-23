@@ -1,19 +1,21 @@
 .Header {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px $left-right-pad;
-  background-color: $faded-blue;
-  color: white;
   position: fixed;
   top: 0;
   right: 0;
   left: 0;
   z-index: 100;
   height: $header-height;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px $left-right-pad;
+  background-color: $faded-blue;
+  color: white;
 
   ul {
     display: flex;
     align-items: center;
+    height: 100%;
 
     li {
       cursor: pointer;

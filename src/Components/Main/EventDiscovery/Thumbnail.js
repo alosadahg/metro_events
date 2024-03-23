@@ -51,7 +51,7 @@ const Thumbnail = ({ thumbnail, date, title, description }) => {
         </div>
         <div className="description">
           <p className="title">{title}</p>
-          <p className="desc">{truncateDescription(description, 175)}</p>
+          <p className="desc">{truncateDescription(description, 145)}</p>
         </div>
       </div>
     </div>
