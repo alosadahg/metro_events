@@ -1,0 +1,28 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style-type: none;
+}
+
+$faded-blue: #455a71;
+$light-blue: #34b6ff;
+$date-red: #e70000;
+
+// spacings
+$header-padding: 20px 50px;
+$left-right-pad: 50px;
+
+// dimensions
+$header-height: 70px;
+
+main {
+  background-color: #f6f6f6;
+  margin-top: $header-height;
+}
+
+@import "./Common/Header.scss";
+@import "./Main/PictureBox/PictureBox.scss";
+@import "./Main/EventDiscovery/EventDiscovery.scss";
+@import "./Main/EventFilters/EventFilters.scss";
+@import "./Main/HeaderNotification/HeaderNotification.scss";

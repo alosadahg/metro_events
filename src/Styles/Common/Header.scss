@@ -1,0 +1,36 @@
+.Header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 100;
+  height: $header-height;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px $left-right-pad;
+  background-color: $faded-blue;
+  color: white;
+
+  ul {
+    display: flex;
+    align-items: center;
+    height: 100%;
+
+    li {
+      cursor: pointer;
+    }
+    li:first-child {
+      font-size: 1.1rem;
+    }
+    .icon {
+      margin-right: 15px;
+      margin-left: 20px;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+    li:nth-child(3) {
+      font-size: 2rem;
+    }
+  }
+}

@@ -1,0 +1,61 @@
+.PictureBox {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  width: 100%;
+  position: relative;
+
+  .ellipses {
+    display: flex;
+    position: absolute;
+    bottom: 15px;
+    z-index: 5;
+
+    .ellipse {
+      background-color: white;
+      padding: 7px;
+      margin: 0 5px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .active {
+      background-color: $light-blue;
+    }
+  }
+
+  .PBox {
+    position: relative;
+    .img-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 300px;
+
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .hero-banner {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      justify-content: sp;
+      background-color: rgb(0, 0, 0, 0.3);
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+
+      h1 {
+        font-weight: 300;
+        letter-spacing: 3px;
+      }
+    }
+  }
+}
