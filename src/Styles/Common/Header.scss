@@ -4,6 +4,12 @@
   padding: 10px $left-right-pad;
   background-color: $faded-blue;
   color: white;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 100;
+  height: $header-height;
 
   ul {
     display: flex;

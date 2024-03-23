@@ -13,11 +13,16 @@ $date-red: #e70000;
 $header-padding: 20px 50px;
 $left-right-pad: 50px;
 
+// dimensions
+$header-height: 60px;
+
 main {
   background-color: #f6f6f6;
+  margin-top: $header-height;
 }
 
 @import "./Common/Header.scss";
 @import "./Main/PictureBox/PictureBox.scss";
 @import "./Main/EventDiscovery/EventDiscovery.scss";
 @import "./Main/EventFilters/EventFilters.scss";
+@import "./Main/HeaderNotification/HeaderNotification.scss";

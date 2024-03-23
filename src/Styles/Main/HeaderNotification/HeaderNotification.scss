@@ -1,0 +1,95 @@
+.Header {
+  .notif {
+    position: relative;
+    cursor: auto;
+
+    .HeaderNotification {
+      // the component that holds the clickable notif
+      position: absolute;
+      top: 30px;
+      right: 0;
+      z-index: 10;
+      width: 450px;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: white;
+      color: black;
+
+      .division {
+        display: flex;
+        align-items: center;
+
+        .see-all {
+          color: $light-blue;
+        }
+
+        p {
+          padding: 5px;
+        }
+      }
+
+      .division:first-child {
+        justify-content: space-between;
+      }
+
+      .division:nth-child(2) {
+        margin: 20px 0;
+        p:first-child {
+          margin-right: 10px;
+        }
+        p {
+          text-align: center;
+          border-radius: 20px;
+          width: 70px;
+          cursor: pointer;
+        }
+        .active {
+          background-color: $light-blue;
+          color: white;
+        }
+      }
+
+      .notif-content {
+        margin-top: 10px;
+        max-height: 550px;
+        overflow-y: auto;
+      }
+
+      .HeaderNotif {
+        // the clickable notification
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        margin: 10px 0;
+        font-size: 1rem;
+        cursor: pointer;
+
+        .icon {
+          font-size: 2rem;
+          margin-right: 10px;
+          color: #e7e7e7;
+        }
+
+        .content {
+          margin: 0 10px;
+        }
+
+        .notif-blue {
+          color: $light-blue;
+        }
+
+        .unread-notifs {
+          p,
+          h4 {
+            color: grey;
+          }
+        }
+      }
+
+      .HeaderNotif:hover {
+        background-color: #f1f1f1;
+        border-radius: 10px;
+      }
+    }
+  }
+}
