@@ -16,6 +16,7 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LandingPage />} />
+          <Route path="/dashboardadmin" element={<DashboardAdmin />} />
           <Route path="/dashboard/:userId" element={<Dashboard />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Registration />} />
@@ -32,7 +33,6 @@ const App = () => {
               </>
             }
           />
-          <Route path="/dashboardadmin" element={<DashboardAdmin />} />
         </Routes>
       </BrowserRouter>
     </div>

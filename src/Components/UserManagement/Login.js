@@ -10,7 +10,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 
 const defaultTheme = createTheme();
@@ -23,28 +23,34 @@ const Login = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    if (!email || !password) {
-      setError("Please enter both email and password");
-      return;
-    }
-
     try {
-      const response = await fetch(`http://localhost:8000/user?email=${email}`);
-      if (!response.ok) {
-        throw new Error("Failed to fetch user information");
-      }
-      const userData = await response.json();
-      if (!userData || userData.length === 0 || !userData[0].id) {
-        throw new Error("User not found or missing user ID");
-      }
-      const userId = userData[0].id;
-      console.log("User ID:", userId);
+      const response = await axios.post(
+        "https://events-api-iuta.onrender.com/user/login",
+        {
+          email: email,
+          password: password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      );
 
-      navigate(`/dashboard/${userId}`);
-    } catch (err) {
-      console.error("Error fetching user information:", err.message);
-      setError("Failed to fetch user information. Please try again.");
+      const user = response.data;
+      console.log(user);
+      if (user) {
+        if (user.user_type === "admin") {
+          navigate("/dashboardadmin");
+        } else {
+          navigate("/");
+        }
+      } else {
+        setError("Invalid email or password");
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+      setError("An error occurred while logging in");
     }
   };
 
