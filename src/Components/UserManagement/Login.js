@@ -113,8 +113,6 @@ const Login = () => {
                   {error}
                 </Typography>
               )}
-              <Link to={"/event-discovery"}>
-                {/* temporary go to event discovery for testing purposes */}
                 <Button
                   type="submit"
                   fullWidth
@@ -123,7 +121,6 @@ const Login = () => {
                 >
                   Sign In
                 </Button>
-              </Link>
               <Grid container>
                 <Grid item>
                   <Link to="/register" variant="body2">
