@@ -1,11 +1,3 @@
-<<<<<<< HEAD:src/Components/UserManagement/Registration.js
-import React, { useState, useEffect } from 'react';
-import { Avatar, Button, CssBaseline, TextField, Grid, Box, Typography, Container, Paper } from '@mui/material';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-=======
 import React, { useState, useEffect } from "react";
 import {
   Avatar,
@@ -21,7 +13,6 @@ import {
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link, useNavigate } from "react-router-dom";
->>>>>>> 49c913d3fd4236443b5e9163cbb00d0d1e06ccd2:src/Components/Registration.js
 
 const defaultTheme = createTheme();
 
@@ -73,26 +64,6 @@ const Registration = () => {
     }
 
     try {
-<<<<<<< HEAD:src/Components/UserManagement/Registration.js
-      const formData = new FormData();
-      formData.append('firstname', firstName);
-      formData.append('lastname', lastName);
-      formData.append('email', email);
-      formData.append('password', password);
-      formData.append('user_type', user_type);
-  
-      const response = await axios.post(
-        'https://events-api-iuta.onrender.com/user/add',
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          }
-        }
-      );
-        setSuccessMessage('Registered successfully. Redirecting to login...');
-        navigate('/login');
-=======
       const checkEmailResponse = await fetch(
         `http://localhost:8000/user?email=${email}`
       );
@@ -120,12 +91,11 @@ const Registration = () => {
         setSuccessMessage("Registered successfully. Redirecting to login...");
         navigate("/login");
       }
->>>>>>> 49c913d3fd4236443b5e9163cbb00d0d1e06ccd2:src/Components/Registration.js
     } catch (error) {
       if (error.response) {
         setErrorMessage(error.response.data.error);
       } else {
-        setErrorMessage('An error occurred. Please try again later.');
+        setErrorMessage("An error occurred. Please try again later.");
       }
     }
   };

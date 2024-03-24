@@ -10,12 +10,8 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link, useNavigate } from "react-router-dom";
-<<<<<<< HEAD:src/Components/UserManagement/Login.js
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-=======
-import { useState } from "react";
->>>>>>> 49c913d3fd4236443b5e9163cbb00d0d1e06ccd2:src/Components/Login.js
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const defaultTheme = createTheme();
 
@@ -25,40 +21,8 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-
-
   const handleSubmit = async (event) => {
     event.preventDefault();
-<<<<<<< HEAD:src/Components/UserManagement/Login.js
-    try {
-      const response = await axios.post(
-        "https://events-api-iuta.onrender.com/user/login",
-        {
-          email: email,
-          password: password
-        },
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        }
-      );
-  
-      const user = response.data;
-      console.log(user);
-      if (user) {
-        if (user.user_type === "admin") {
-          navigate('/dashboardadmin');
-        } else {
-          navigate('/');
-        }
-      } else {
-        setError("Invalid email or password");
-      }
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-      setError("An error occurred while logging in");
-=======
 
     if (!email || !password) {
       setError("Please enter both email and password");
@@ -81,11 +45,8 @@ const Login = () => {
     } catch (err) {
       console.error("Error fetching user information:", err.message);
       setError("Failed to fetch user information. Please try again.");
->>>>>>> 49c913d3fd4236443b5e9163cbb00d0d1e06ccd2:src/Components/Login.js
     }
   };
-  
-  
 
   return (
     <ThemeProvider theme={defaultTheme}>
