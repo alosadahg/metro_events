@@ -40,7 +40,7 @@ const EventList = () => {
         <div style={{ position: 'relative' }}>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', opacity: isLoading ? 0.5 : 1 }}>
             {events.map((event) => (
-              <Card key={event.id} sx={{ maxWidth: 345 }}>
+              <Card key={event.id} sx={{width: 330}}>
                 <CardMedia
                   component="img"
                   alt={event.title}
@@ -49,16 +49,24 @@ const EventList = () => {
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
-                    {event.title}
+                    {event.eventname}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body1" color="text.secondary">
                     {event.description}
                   </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Date: {event.startdate} - {event.enddate}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Location: {event.location}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Status: {event.status}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Participants: {event.participants ? event.participants : 0} 
+                  </Typography>
                 </CardContent>
-                <CardActions>
-                  <Button size="small">Update</Button>
-                  <Button size="small">Delete</Button>
-                </CardActions>
               </Card>
             ))}
           </div>

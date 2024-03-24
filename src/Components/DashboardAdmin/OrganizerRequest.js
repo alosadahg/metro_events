@@ -45,7 +45,7 @@ export default function OrganizerRequest(props) {
           status: "organizer"
         },
         {
-          headers: {
+          headers: {  
             "Content-Type": "application/x-www-form-urlencoded",
           },
         }
@@ -57,7 +57,25 @@ export default function OrganizerRequest(props) {
     }
   };
 
-  const handleReject = (email) => {
+  const handleReject = async(email) => {
+    try {
+      const response = await axios.put(
+        "https://events-api-iuta.onrender.com/user/update-status",
+        {
+          email: email,
+          status: "user"
+        },
+        {
+          headers: {  
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      );
+  
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
   };
 
   return (
