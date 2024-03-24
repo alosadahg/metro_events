@@ -21,6 +21,8 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  const credsNotEmpty = email !== "" && password !== "";
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -39,11 +41,11 @@ const Login = () => {
 
       const user = response.data;
       console.log(user);
-      if (user) {
+      if (user && credsNotEmpty) {
         if (user.user_type === "admin") {
           navigate("/dashboardadmin");
         } else {
-          navigate("/");
+          navigate("/event-discovery");
         }
       } else {
         setError("Invalid email or password");
@@ -113,14 +115,14 @@ const Login = () => {
                   {error}
                 </Typography>
               )}
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                >
-                  Sign In
-                </Button>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Sign In
+              </Button>
               <Grid container>
                 <Grid item>
                   <Link to="/register" variant="body2">
