@@ -7,14 +7,19 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Dashboard from "./Components/Dashboard.js";
 import Login from "./Components/Login.js";
 import Registration from "./Components/Registration.js";
+import LandingPage from "./Components/Main/LandingPage/LandingPage.js";
 
 const App = () => {
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/dashboard/:userId" element={<Dashboard />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Registration />} />
           <Route
-            path="/"
+            path="/event-discovery"
             element={
               <>
                 <Header />
@@ -26,9 +31,6 @@ const App = () => {
               </>
             }
           />
-          <Route path="/dashboard/:userId" element={<Dashboard />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Registration />} />
         </Routes>
       </BrowserRouter>
     </div>

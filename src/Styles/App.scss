@@ -7,6 +7,7 @@
 
 $faded-blue: #455a71;
 $light-blue: #34b6ff;
+$faded-cyan: #90cedb;
 $date-red: #e70000;
 
 // spacings
@@ -26,3 +27,4 @@ main {
 @import "./Main/EventDiscovery/EventDiscovery.scss";
 @import "./Main/EventFilters/EventFilters.scss";
 @import "./Main/HeaderNotification/HeaderNotification.scss";
+@import "./Main/LandingPage/LandingPage.scss";
