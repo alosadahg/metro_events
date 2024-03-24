@@ -9,6 +9,14 @@
       "user_type": "admin"
     },
     {
+      "id": "test",
+      "firstName": "test",
+      "lastName": "test",
+      "email": "test@test.com",
+      "password": "test",
+      "user_type": "user"
+    },
+    {
       "id": "a99d",
       "firstName": "Rada",
       "lastName": "Alvarado",

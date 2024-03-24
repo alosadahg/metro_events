@@ -1,0 +1,67 @@
+.LandingPage {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  background-color: $faded-blue;
+  color: white;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+
+  .hero-banner-container {
+    padding: 50px;
+
+    h1 {
+      font-size: 10rem;
+      letter-spacing: 0;
+      margin: -115px 0;
+      font-weight: 300;
+    }
+
+    h1:first-child {
+      margin-top: 0;
+      color: #48dcd0;
+      font-size: 9rem;
+    }
+
+    h1:last-child {
+      margin-left: 50px;
+      color: #f9febe;
+    }
+
+    .description {
+      margin-top: 130px;
+      margin-bottom: 50px;
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+    }
+  }
+
+  .image-container {
+    height: 100%;
+    right: 0;
+    bottom: 0;
+
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 100% 0 0 0;
+    }
+  }
+
+  a.register-here {
+    padding: 10px 60px;
+    background-color: $faded-cyan;
+    text-decoration: none;
+    color: black;
+    border-radius: 5px;
+    outline: none;
+  }
+
+  a.register-here:hover {
+    background-color: #f9febe;
+    transition: 0.3s;
+    padding: 15px 65px;
+  }
+}
