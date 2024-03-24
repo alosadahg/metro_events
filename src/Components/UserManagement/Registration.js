@@ -3,6 +3,7 @@ import { Avatar, Button, CssBaseline, TextField, Grid, Box, Typography, Containe
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const defaultTheme = createTheme();
 
@@ -54,27 +55,30 @@ const Registration = () => {
     }
   
     try {
-      const checkEmailResponse = await fetch(`http://localhost:8000/user?email=${email}`);
-      const existingUserData = await checkEmailResponse.json();
-      if (existingUserData && existingUserData.length > 0) {
-        setErrorMessage('Email is already registered.');
-        return;
-      }
+      const formData = new FormData();
+      formData.append('firstname', firstName);
+      formData.append('lastname', lastName);
+      formData.append('email', email);
+      formData.append('password', password);
+      formData.append('user_type', user_type);
   
-      const response = await fetch('http://localhost:8000/user', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ firstName, lastName, email, password, user_type }),
-      });
-  
-      if (!response.ok) {
-        throw new Error('Failed to register. Please try again later.');
-      } else {
+      const response = await axios.post(
+        'https://events-api-iuta.onrender.com/user/add',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          }
+        }
+      );
         setSuccessMessage('Registered successfully. Redirecting to login...');
         navigate('/login');
-      }
     } catch (error) {
-      setErrorMessage(error.message);
+      if (error.response) {
+        setErrorMessage(error.response.data.error);
+      } else {
+        setErrorMessage('An error occurred. Please try again later.');
+      }
     }
   };
   

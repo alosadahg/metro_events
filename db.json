@@ -16,5 +16,25 @@
       "password": "test",
       "user_type": "user"
     }
+  ], 
+  "events": [
+    {
+      "id": 1,
+      "name": "Test Event",
+      "description": "This is a test event",
+      "date": "2020-01-01",
+      "time": "12:00:00",
+      "location": "Test Location",
+      "organizer": "Rada"
+    },
+    {
+      "id": 1,
+      "name": "Test Event",
+      "description": "This is a test event",
+      "date": "2020-01-01",
+      "time": "12:00:00",
+      "location": "Test Location",
+      "organizer": "Rada"
+    }
   ]
 }
