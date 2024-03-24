@@ -1,27 +1,9 @@
-<<<<<<< HEAD:src/Components/UserManagement/Registration.js
 import React, { useState, useEffect } from 'react';
 import { Avatar, Button, CssBaseline, TextField, Grid, Box, Typography, Container, Paper } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-=======
-import React, { useState, useEffect } from "react";
-import {
-  Avatar,
-  Button,
-  CssBaseline,
-  TextField,
-  Grid,
-  Box,
-  Typography,
-  Container,
-  Paper,
-} from "@mui/material";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Link, useNavigate } from "react-router-dom";
->>>>>>> 49c913d3fd4236443b5e9163cbb00d0d1e06ccd2:src/Components/Registration.js
 
 const defaultTheme = createTheme();
 
@@ -73,7 +55,6 @@ const Registration = () => {
     }
 
     try {
-<<<<<<< HEAD:src/Components/UserManagement/Registration.js
       const formData = new FormData();
       formData.append('firstname', firstName);
       formData.append('lastname', lastName);
@@ -92,35 +73,6 @@ const Registration = () => {
       );
         setSuccessMessage('Registered successfully. Redirecting to login...');
         navigate('/login');
-=======
-      const checkEmailResponse = await fetch(
-        `http://localhost:8000/user?email=${email}`
-      );
-      const existingUserData = await checkEmailResponse.json();
-      if (existingUserData && existingUserData.length > 0) {
-        setErrorMessage("Email is already registered.");
-        return;
-      }
-
-      const response = await fetch("http://localhost:8000/user", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          firstName,
-          lastName,
-          email,
-          password,
-          user_type,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to register. Please try again later.");
-      } else {
-        setSuccessMessage("Registered successfully. Redirecting to login...");
-        navigate("/login");
-      }
->>>>>>> 49c913d3fd4236443b5e9163cbb00d0d1e06ccd2:src/Components/Registration.js
     } catch (error) {
       if (error.response) {
         setErrorMessage(error.response.data.error);
