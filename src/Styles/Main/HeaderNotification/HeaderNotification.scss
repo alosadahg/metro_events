@@ -3,6 +3,10 @@
     position: relative;
     cursor: auto;
 
+    h3 {
+      font-size: 1.3rem;
+    }
+
     .HeaderNotification {
       // the component that holds the clickable notif
       position: absolute;
@@ -53,7 +57,7 @@
 
       .notif-content {
         margin-top: 10px;
-        max-height: 550px;
+        max-height: 500px;
         overflow-y: auto;
       }
 
