@@ -8,10 +8,12 @@ import Button from '@mui/material/Button';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Splashscreen from '../Common/Splashscreen';
+import UpdateUserForm from './UpdateUserForm';
 
 export default function OrganizerRequest(props) {
   const [rows, setRows] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -38,8 +40,8 @@ export default function OrganizerRequest(props) {
 
   const handleApprove = async (email) => {
     try {
-      
-      const response = await axios.put(
+      setIsLoading(true);
+      const response = await axios.put( 
         "https://events-api-iuta.onrender.com/user/update-status",
         {
           email: email,
@@ -51,15 +53,47 @@ export default function OrganizerRequest(props) {
           },
         }
       );
-  
       console.log(response.data);
     } catch (error) {
       console.error("Error fetching user data:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleUpdate = async (row) => {
+    setIsFormOpen(true);
+  };
+
+  const handleDelete = async (row) => {
+    try {
+      setIsLoading(true);
+      const response = await axios.delete(
+        "https://events-api-iuta.onrender.com/user/update-status",
+        {
+          uid: row.uid,
+          firstname: row.firstname,
+          lastname: row.lastname,
+          email: row.email,
+          password: row.password
+        },
+        {
+          headers: {  
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      );
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handleReject = async(email) => {
     try {
+      setIsLoading(true);
       const response = await axios.put(
         "https://events-api-iuta.onrender.com/user/update-status",
         {
@@ -72,10 +106,11 @@ export default function OrganizerRequest(props) {
           },
         }
       );
-  
       console.log(response.data);
     } catch (error) {
       console.error("Error fetching user data:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -116,10 +151,15 @@ export default function OrganizerRequest(props) {
                 )}
                 {props.parent === 'user' && (
                   <TableCell align="center">
-                    <Button variant="contained" color="primary" onClick={() => handleApprove(row.email)}>Update</Button>
+                    <Button variant="contained" color="primary" onClick={() => handleUpdate(row)}>Update</Button>
                     <span style={{ margin: '0 5px' }}></span> {/* Add a gap between buttons */}
-                    <Button variant="contained" color="secondary" onClick={() => handleReject(row.email)}>Delete</Button>
+                    <Button variant="contained" color="secondary" onClick={() => handleDelete(row)}>Delete</Button>
                   </TableCell>
+                )}
+                {isFormOpen && (
+                  <div className="overlay">
+                    <UpdateUserForm row={row} onClose={setIsFormOpen}/>
+                  </div>
                 )}
               </TableRow>
             ))}
