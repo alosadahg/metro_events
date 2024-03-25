@@ -28,7 +28,7 @@ export default function OrganizerRequest(props) {
     };
 
     fetchUserData();
-  }, []);
+  }, [rows]);
 
   let filteredRows = rows; 
 
@@ -95,9 +95,7 @@ export default function OrganizerRequest(props) {
               <TableCell>Email</TableCell>
               <TableCell>Password</TableCell>
               <TableCell>User Type</TableCell>
-              {props.parent === 'org' && (
-                <TableCell align="center">Actions</TableCell>
-              )}
+              <TableCell align="center">Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -114,6 +112,13 @@ export default function OrganizerRequest(props) {
                     <Button variant="contained" color="primary" onClick={() => handleApprove(row.email)}>Approve</Button>
                     <span style={{ margin: '0 5px' }}></span> {/* Add a gap between buttons */}
                     <Button variant="contained" color="secondary" onClick={() => handleReject(row.email)}>Reject</Button>
+                  </TableCell>
+                )}
+                {props.parent === 'user' && (
+                  <TableCell align="center">
+                    <Button variant="contained" color="primary" onClick={() => handleApprove(row.email)}>Update</Button>
+                    <span style={{ margin: '0 5px' }}></span> {/* Add a gap between buttons */}
+                    <Button variant="contained" color="secondary" onClick={() => handleReject(row.email)}>Delete</Button>
                   </TableCell>
                 )}
               </TableRow>

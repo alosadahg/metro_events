@@ -33,7 +33,7 @@ const DashboardAdmin = () => {
 
   return (
     <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
-      <Paper elevation={3} sx={{ p: 2, textAlign: 'center', mb: 3 }}>
+      <Paper elevation={3} sx={{ p: 2, textAlign: 'center', mb: 3, backgroundColor: "#455a71", color: "#FFFFFF" }}>
         <Typography variant="h4">Admin Dashboard</Typography>
       </Paper>
       <IconBreadcrumbs setDisplayRequest={setDisplayRequest} setDisplayEvents={setDisplayEvents} setUserClick={setUserClick} />
