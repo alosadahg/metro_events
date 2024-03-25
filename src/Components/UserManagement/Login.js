@@ -40,7 +40,7 @@ const Login = () => {
       );
 
       const user = response.data;
-      console.log(user);
+      console.log(response);
       if (user && credsNotEmpty) {
         if (user.user_type === "admin") {
           navigate("/dashboardadmin");

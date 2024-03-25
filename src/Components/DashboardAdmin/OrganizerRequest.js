@@ -38,6 +38,7 @@ export default function OrganizerRequest(props) {
 
   const handleApprove = async (email) => {
     try {
+      
       const response = await axios.put(
         "https://events-api-iuta.onrender.com/user/update-status",
         {

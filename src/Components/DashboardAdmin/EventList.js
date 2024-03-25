@@ -45,7 +45,7 @@ const EventList = () => {
                   component="img"
                   alt={event.title}
                   height="140"
-                  image={event.imageUrl}
+                  image={event.thumbnail}
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
