@@ -7,7 +7,6 @@ import { EventContext } from "../../../Context/EventContext";
 const EventDiscovery = () => {
   const [data] = useContext(EventContext);
 
-  console.log(data);
   return (
     <div className="EventDiscovery">
       <nav>

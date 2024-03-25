@@ -15,7 +15,7 @@ const EventProvider = ({ children }) => {
           "https://events-api-iuta.onrender.com/event/view-all"
         );
         setData(response.data);
-        console.log(response);
+        // console.log(response);
       } catch (error) {
         setError(error);
       } finally {

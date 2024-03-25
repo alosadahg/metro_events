@@ -1,19 +1,47 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { faBell, faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import HeaderNotification from "../Main/Notification/HeaderNotification";
 import { ModalContext } from "../../Context/ModalContext";
+import { UserContext } from "../../Context/LoginContext";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const Header = () => {
   const [modalState, setModalState] = useContext(ModalContext);
-
   const [isNotifClicked, setIsNotifClicked] = useState(false);
   const [isUserDropdown, setIsUserDropdown] = useState(false);
+
+  const [userData, setUserData] = useContext(UserContext);
+  const { userID } = useParams();
+
+  // console.log(userData);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://events-api-iuta.onrender.com/user/view-all"
+        );
+        response.data.forEach((user) => {
+          if (user.uid === Number(userID)) {
+            setUserData(user);
+          }
+        });
+      } catch (error) {
+        // setError(error);
+      } finally {
+        // setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <nav className="Header">
       <h2>MetroEvents</h2>
       <ul>
-        <li>Welcome, Tanga!</li>
+        <li>Welcome, {userData && userData.email}!</li>
         <li className="notif">
           <FontAwesomeIcon
             icon={faBell}
