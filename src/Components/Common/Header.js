@@ -31,7 +31,7 @@ const Header = () => {
           {isUserDropdown && (
             <ul className="user-dropdown">
               <li>Profile</li>
-              <li>My events</li>
+              <li>Joined events</li>
               <li
                 onClick={() => {
                   setModalState({
