@@ -22,12 +22,15 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false); // Add loading state
 
   const credsNotEmpty = email !== "" && password !== "";
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
+      setIsLoading(true); // Set loading state to true
+
       const response = await axios.post(
         "https://events-api-iuta.onrender.com/user/login",
         {
@@ -40,7 +43,6 @@ const Login = () => {
           },
         }
       );
-
       const user = response.data;
       // console.log(response);
       if (user && credsNotEmpty) {
@@ -56,6 +58,8 @@ const Login = () => {
     } catch (error) {
       console.error("Error fetching user data:", error);
       setError("An error occurred while logging in");
+    } finally {
+      setIsLoading(false); // Set loading state to false after request completes
     }
   };
 
@@ -64,7 +68,7 @@ const Login = () => {
       <Grid
         container
         component="main"
-        sx={{ height: "100vh", justifyContent: "center", alignItems: "center" }}
+        sx={{ height: "100vh", justifyContent: "center", alignItems: "center", backgroundColor: "#455a71"}}
       >
         <CssBaseline />
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
@@ -123,6 +127,7 @@ const Login = () => {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
+                disabled={isLoading} // Disable button when loading
               >
                 Sign In
               </Button>

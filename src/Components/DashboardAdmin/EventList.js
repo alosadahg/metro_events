@@ -64,7 +64,7 @@ const EventList = () => {
                     Status: {event.status}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    Participants: {event.participants ? event.participants : 0} 
+                    Participants: {event.participants ? event.participants.length : 0} 
                   </Typography>
                 </CardContent>
               </Card>

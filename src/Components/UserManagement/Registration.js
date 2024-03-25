@@ -27,6 +27,7 @@ const Registration = () => {
     password: "",
     user_type: "",
   });
+  const [isLoading, setIsLoading] = useState(false); // Add loading state
 
   const navigate = useNavigate();
 
@@ -65,6 +66,8 @@ const Registration = () => {
     }
 
     try {
+      setIsLoading(true); // Set loading state to true
+
       const formData = new FormData();
       formData.append("firstname", firstName);
       formData.append("lastname", lastName);
@@ -89,6 +92,8 @@ const Registration = () => {
       } else {
         setErrorMessage("An error occurred. Please try again later.");
       }
+    } finally {
+      setIsLoading(false); 
     }
   };
 
@@ -102,10 +107,9 @@ const Registration = () => {
       <Grid
         container
         component="main"
-        sx={{ height: "100vh", justifyContent: "center", alignItems: "center" }}
+        sx={{ height: "100vh", justifyContent: "center", alignItems: "center", backgroundColor: "#455a71"}}
       >
         <CssBaseline />
-        <Container component="main" maxWidth="xs">
           <Paper elevation={6}>
             <Box
               sx={{
@@ -194,6 +198,7 @@ const Registration = () => {
                     fullWidth
                     variant="contained"
                     sx={{ mt: 3, mb: 2 }}
+                    disabled={isLoading} // Disable button when loading
                   >
                     Sign Up
                   </Button>
@@ -207,7 +212,6 @@ const Registration = () => {
               </Box>
             </Box>
           </Paper>
-        </Container>
       </Grid>
     </ThemeProvider>
   );
