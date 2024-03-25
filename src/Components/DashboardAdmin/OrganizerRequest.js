@@ -14,6 +14,7 @@ export default function OrganizerRequest(props) {
   const [rows, setRows] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [selectedRow, setSelectedRow] = useState(null);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -62,6 +63,7 @@ export default function OrganizerRequest(props) {
   };
 
   const handleUpdate = async (row) => {
+    setSelectedRow(row); 
     setIsFormOpen(true);
   };
 
@@ -158,7 +160,7 @@ export default function OrganizerRequest(props) {
                 )}
                 {isFormOpen && (
                   <div className="overlay">
-                    <UpdateUserForm row={row} onClose={setIsFormOpen}/>
+                    <UpdateUserForm row={selectedRow} onClose={() => setIsFormOpen(false)} /> 
                   </div>
                 )}
               </TableRow>
