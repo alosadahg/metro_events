@@ -1,7 +1,7 @@
-import React from "react";
 import EventFilters from "./EventFilters";
 import Thumbnail from "./Thumbnail";
 import bike from "../../../Assets/bike.jpg";
+import Modal from "../../Modal/Modal";
 
 const EventDiscovery = () => {
   const data = [
@@ -60,6 +60,7 @@ const EventDiscovery = () => {
         <div className="Thumbnails">
           {data.map((item, i) => (
             <Thumbnail
+              key={i}
               thumbnail={bike}
               date={item.date}
               title={item.title}
@@ -68,6 +69,8 @@ const EventDiscovery = () => {
           ))}
         </div>
       </div>
+
+      <Modal />
     </div>
   );
 };

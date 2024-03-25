@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import "./Styles/App.scss";
 import Header from "./Components/Common/Header";
 import PictureBox from "./Components/Main/PictureBox/PictureBox";
@@ -9,6 +8,7 @@ import Login from "./Components/UserManagement/Login.js";
 import Registration from "./Components/UserManagement/Registration.js";
 import DashboardAdmin from "./Components/DashboardAdmin/DashboardAdmin.js";
 import LandingPage from "./Components/Main/LandingPage/LandingPage.js";
+import ModalProvider from "./Context/ModalContext.js";
 
 const App = () => {
   return (
@@ -24,12 +24,14 @@ const App = () => {
             path="/event-discovery"
             element={
               <>
-                <Header />
-                <main>
-                  {/* note: main tag has zero padding/margin */}
-                  <PictureBox />
-                  <EventDiscovery /> {/*only if user not admi/organizer*/}
-                </main>
+                <ModalProvider>
+                  <Header />
+                  <main>
+                    {/* note: main tag has zero padding/margin */}
+                    <PictureBox />
+                    <EventDiscovery /> {/*only if user not admi/organizer*/}
+                  </main>
+                </ModalProvider>
               </>
             }
           />

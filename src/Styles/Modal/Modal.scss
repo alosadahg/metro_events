@@ -1,0 +1,40 @@
+.Modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 100;
+
+  .content {
+    z-index: 1000;
+    background-color: white;
+    padding: 20px;
+    border-radius: 20px;
+  }
+  .OrganizerRequestModal {
+    form,
+    div {
+      display: flex;
+      flex-direction: column;
+    }
+
+    form {
+      button {
+        padding: 7px;
+        border-radius: 5px;
+        margin: 10px 0;
+        cursor: pointer;
+        outline: none;
+        border: none;
+      }
+    }
+  }
+
+  .overlay {
+    z-index: 100 !important;
+  }
+}

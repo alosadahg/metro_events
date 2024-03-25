@@ -3,10 +3,9 @@
   top: 0;
   right: 0;
   left: 0;
-  z-index: 100;
+  z-index: 2;
   height: $header-height;
   display: flex;
-  align-items: center;
   justify-content: space-between;
   padding: 10px $left-right-pad;
   background-color: $faded-blue;
@@ -31,6 +30,32 @@
     }
     li:nth-child(3) {
       font-size: 2rem;
+    }
+  }
+  .user-icon {
+    position: relative;
+    .user-dropdown {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      bottom: -$header-height + 12;
+      right: 0;
+      width: 320px;
+
+      li {
+        font-size: 1rem;
+        background-color: $faded-blue;
+        padding: 15px;
+        width: 100%;
+      }
+
+      li:last-child {
+        border-radius: 0 0 10px 10px;
+      }
+
+      li:hover {
+        background-color: red;
+      }
     }
   }
 }
