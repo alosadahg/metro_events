@@ -1,48 +1,13 @@
 import EventFilters from "./EventFilters";
 import Thumbnail from "./Thumbnail";
-import bike from "../../../Assets/bike.jpg";
 import Modal from "../../Modal/Modal";
+import { useContext } from "react";
+import { EventContext } from "../../../Context/EventContext";
 
 const EventDiscovery = () => {
-  const data = [
-    {
-      date: "03/23/2024",
-      title: "Fucking title",
-      description:
-        "Embark on an adrenaline-pumping journey through rugged landscapes and untamed trails in our thrilling trail biking event, Wild Trails Adventure: Conquer the Terrain! Get ready to push your limits, test your skills, and experience the rush of conquering nature's challenges on two wheels.",
-    },
-    {
-      date: "03/23/2024",
-      title: "Fucking title",
-      description:
-        "Embark on an adrenaline-pumping journey through rugged landscapes and untamed trails in our thrilling trail biking event, Wild Trails Adventure: Conquer the Terrain! Get ready to push your limits, test your skills, and experience the rush of conquering nature's challenges on two wheels.",
-    },
-    {
-      date: "03/23/2024",
-      title: "Fucking title",
-      description:
-        "Embark on an adrenaline-pumping journey through rugged landscapes and untamed trails in our thrilling trail biking event, Wild Trails Adventure: Conquer the Terrain! Get ready to push your limits, test your skills, and experience the rush of conquering nature's challenges on two wheels.",
-    },
-    {
-      date: "03/23/2024",
-      title: "Fucking title",
-      description:
-        "Embark on an adrenaline-pumping journey through rugged landscapes and untamed trails in our thrilling trail biking event, Wild Trails Adventure: Conquer the Terrain! Get ready to push your limits, test your skills, and experience the rush of conquering nature's challenges on two wheels.",
-    },
-    {
-      date: "03/23/2024",
-      title: "Fucking title",
-      description:
-        "Embark on an adrenaline-pumping journey through rugged landscapes and untamed trails in our thrilling trail biking event, Wild Trails Adventure: Conquer the Terrain! Get ready to push your limits, test your skills, and experience the rush of conquering nature's challenges on two wheels.",
-    },
-    {
-      date: "03/23/2024",
-      title: "Fucking title",
-      description:
-        "Embark on an adrenaline-pumping journey through rugged landscapes and untamed trails in our thrilling trail biking event, Wild Trails Adventure: Conquer the Terrain! Get ready to push your limits, test your skills, and experience the rush of conquering nature's challenges on two wheels.",
-    },
-  ];
+  const [data] = useContext(EventContext);
 
+  console.log(data);
   return (
     <div className="EventDiscovery">
       <nav>
@@ -61,9 +26,9 @@ const EventDiscovery = () => {
           {data.map((item, i) => (
             <Thumbnail
               key={i}
-              thumbnail={bike}
-              date={item.date}
-              title={item.title}
+              thumbnail={item.thumbnail}
+              date={item.startdate}
+              title={item.eventname}
               description={item.description}
             />
           ))}

@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import HeaderNotif from "./HeaderNotif";
+import { EventContext } from "./../../../Context/EventContext";
 
 const HeaderNotification = () => {
+  const [data] = useContext(EventContext);
   const notifs = [
     {
       title: "This is a fucking notification",
@@ -52,11 +54,12 @@ const HeaderNotification = () => {
       </div>
 
       <div className="notif-content">
-        {notifs.map((notif, i) => (
+        {data.map((notif, i) => (
           <HeaderNotif
-            title={notif.title}
+            title={notif.eventname}
             description={notif.description}
             isRead={notif.isRead}
+            status={notif.status}
           />
         ))}
       </div>

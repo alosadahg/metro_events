@@ -9,34 +9,37 @@ import Registration from "./Components/UserManagement/Registration.js";
 import DashboardAdmin from "./Components/DashboardAdmin/DashboardAdmin.js";
 import LandingPage from "./Components/Main/LandingPage/LandingPage.js";
 import ModalProvider from "./Context/ModalContext.js";
+import EventProvider from "./Context/EventContext.js";
 
 const App = () => {
   return (
     <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/dashboardadmin" element={<DashboardAdmin />} />
-          <Route path="/dashboard/:userId" element={<Dashboard />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Registration />} />
-          <Route
-            path="/event-discovery"
-            element={
-              <>
-                <ModalProvider>
-                  <Header />
-                  <main>
-                    {/* note: main tag has zero padding/margin */}
-                    <PictureBox />
-                    <EventDiscovery /> {/*only if user not admi/organizer*/}
-                  </main>
-                </ModalProvider>
-              </>
-            }
-          />
-        </Routes>
-      </BrowserRouter>
+      <ModalProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/dashboardadmin" element={<DashboardAdmin />} />
+            <Route path="/dashboard/:userId" element={<Dashboard />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Registration />} />
+            <Route
+              path="/event-discovery"
+              element={
+                <>
+                  <EventProvider>
+                    <Header />
+                    <main>
+                      {/* note: main tag has zero padding/margin */}
+                      <PictureBox />
+                      <EventDiscovery /> {/*only if user not admi/organizer*/}
+                    </main>
+                  </EventProvider>
+                </>
+              }
+            />
+          </Routes>
+        </BrowserRouter>
+      </ModalProvider>
     </div>
   );
 };
