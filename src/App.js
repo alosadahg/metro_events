@@ -10,38 +10,52 @@ import DashboardAdmin from "./Components/DashboardAdmin/DashboardAdmin.js";
 import LandingPage from "./Components/Main/LandingPage/LandingPage.js";
 import ModalProvider from "./Context/ModalContext.js";
 import EventProvider from "./Context/EventContext.js";
-import LoggedUserProvider from "./Context/LoginContext.js";
+import LoggedUserProvider, { UserContext } from "./Context/LoginContext.js";
+import ExpandedEvent from "./Components/Main/ExpandedEvent/ExpandedEvent";
+import { useContext } from "react";
 
 const App = () => {
   return (
     <div className="App">
       <ModalProvider>
         <LoggedUserProvider>
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<LandingPage />} />
-              <Route path="/dashboardadmin" element={<DashboardAdmin />} />
-              <Route path="/dashboard/:userId" element={<Dashboard />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Registration />} />
-              <Route
-                path="/event-discovery/:userID"
-                // path="/event-discovery"
-                element={
-                  <>
-                    <EventProvider>
+          <EventProvider>
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<LandingPage />} />
+                <Route path="/dashboardadmin" element={<DashboardAdmin />} />
+                <Route path="/dashboard/:userId" element={<Dashboard />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Registration />} />
+                <Route
+                  path="/event-discovery/:userID"
+                  // path="/event-discovery"
+                  element={
+                    <>
                       <Header />
                       <main>
                         {/* note: main tag has zero padding/margin */}
                         <PictureBox />
                         <EventDiscovery /> {/*only if user not admi/organizer*/}
                       </main>
-                    </EventProvider>
-                  </>
-                }
-              />
-            </Routes>
-          </BrowserRouter>
+                    </>
+                  }
+                />
+                <Route
+                  path="/expanded-event/:eventID"
+                  element={
+                    <>
+                      <Header />
+
+                      <main>
+                        <ExpandedEvent />
+                      </main>
+                    </>
+                  }
+                />
+              </Routes>
+            </BrowserRouter>
+          </EventProvider>
         </LoggedUserProvider>
       </ModalProvider>
     </div>

@@ -3,7 +3,7 @@ import HeaderNotif from "./HeaderNotif";
 import { EventContext } from "./../../../Context/EventContext";
 
 const HeaderNotification = () => {
-  const [data] = useContext(EventContext);
+  const { data } = useContext(EventContext);
   const notifs = [
     {
       title: "This is a fucking notification",

@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import HeaderNotification from "../Main/Notification/HeaderNotification";
 import { ModalContext } from "../../Context/ModalContext";
 import { UserContext } from "../../Context/LoginContext";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
 const Header = () => {
@@ -15,7 +15,6 @@ const Header = () => {
   const [userData, setUserData] = useContext(UserContext);
   const { userID } = useParams();
 
-  // console.log(userData);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -59,18 +58,29 @@ const Header = () => {
           {isUserDropdown && (
             <ul className="user-dropdown">
               <li>Profile</li>
-              <li>Joined events</li>
-              <li
-                onClick={() => {
-                  setModalState({
-                    ...modalState,
-                    content: "organizerRequestModal",
-                    open: true,
-                  });
-                }}
-              >
-                Become and organizer
-              </li>
+              {userData.user_type !== "organizer" && (
+                <>
+                  <li>Joined events</li>
+                  <li
+                    onClick={() => {
+                      setModalState({
+                        ...modalState,
+                        content: "organizerRequestModal",
+                        open: true,
+                      });
+                    }}
+                  >
+                    Become and organizer
+                  </li>
+                </>
+              )}
+
+              {userData.user_type === "organizer" && (
+                <Link to={"/organizer-dashboard"}>
+                  <li>Dashboard</li>
+                </Link>
+              )}
+
               <li>Logout</li>
             </ul>
           )}

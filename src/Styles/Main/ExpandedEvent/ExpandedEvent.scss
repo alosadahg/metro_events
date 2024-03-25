@@ -1,0 +1,28 @@
+.ExpandedEvent {
+  padding-top: $header-height;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+
+  padding: 50px;
+
+  div {
+    margin: 20px;
+  }
+
+  .img-container {
+    width: 500px;
+  }
+
+  img {
+    width: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+  }
+
+  button {
+    width: 300px;
+    cursor: pointer;
+  }
+}
