@@ -1,47 +1,62 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import HeaderNotif from "./HeaderNotif";
 import { EventContext } from "./../../../Context/EventContext";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const HeaderNotification = () => {
   const { data } = useContext(EventContext);
-  const notifs = [
-    {
-      title: "This is a fucking notification",
-      description:
-        "A quick brown son of a dragon ball z-kai jumped over a piece of crap",
-      isRead: true,
-    },
-    {
-      title: "This is a fucking notification",
-      description:
-        "A quick brown son of a dragon ball z-kai jumped over a piece of crap",
-      isRead: false,
-    },
-    {
-      title: "This is a fucking notification",
-      description:
-        "A quick brown son of a dragon ball z-kai jumped over a piece of crap",
-      isRead: true,
-    },
-    {
-      title: "This is a fucking notification",
-      description:
-        "A quick brown son of a dragon ball z-kai jumped over a piece of crap",
-      isRead: false,
-    },
-    {
-      title: "This is a fucking notification",
-      description:
-        "A quick brown son of a dragon ball z-kai jumped over a piece of crap",
-      isRead: false,
-    },
-    {
-      title: "This is a fucking notification",
-      description:
-        "A quick brown son of a dragon ball z-kai jumped over a piece of crap",
-      isRead: false,
-    },
-  ];
+  const { userID } = useParams();
+  const [notifs, setNotifs] = useState({});
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.post(
+          "https://events-api-iuta.onrender.com/attend-event/view-by-user",
+          {
+            userid:userID
+          },
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded"
+            }
+          }
+        );
+        setNotifs(response.data);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [userID]);
+
+  const findEventById = (eventId) => {
+    for (const event of data) {
+      if (event.eid === eventId) {
+        return event;
+      }
+    }
+    return null;
+  };
+
+  const getStatusMessage = (status) => {
+    switch (status) {
+      case "approved":
+        return "Organizer has approved your request to join this event";
+      case "rejected":
+        return "Organizer has rejected your request to join this event";
+      case "interested":
+        return "You have submitted a request to join this event";
+      default:
+        return "";
+    }
+  };
+
   return (
     <div className="HeaderNotification">
       <div className="division">
@@ -54,14 +69,16 @@ const HeaderNotification = () => {
       </div>
 
       <div className="notif-content">
-        {data.map((notif, i) => (
-          <HeaderNotif
-            title={notif.eventname}
-            description={notif.description}
-            isRead={notif.isRead}
-            status={notif.status}
-          />
-        ))}
+        {Object.values(notifs).map((notif, i) => {
+          const event = findEventById(notif.eventid);
+          return (
+            <HeaderNotif
+              title={event ? event.eventname : "Unknown Event"}
+              isRead={false}
+              status={getStatusMessage(notif.status)}
+            />
+          );
+        })}
       </div>
     </div>
   );
