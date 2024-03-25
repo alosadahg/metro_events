@@ -1,13 +1,12 @@
 import EventFilters from "./EventFilters";
 import Thumbnail from "./Thumbnail";
 import Modal from "../../Modal/Modal";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { EventContext } from "../../../Context/EventContext";
 
 const EventDiscovery = () => {
-  const [data] = useContext(EventContext);
+  const { data } = useContext(EventContext);
 
-  console.log(data);
   return (
     <div className="EventDiscovery">
       <nav>
@@ -30,6 +29,7 @@ const EventDiscovery = () => {
               date={item.startdate}
               title={item.eventname}
               description={item.description}
+              event={item}
             />
           ))}
         </div>

@@ -9,6 +9,16 @@
   justify-content: space-between;
   padding: 10px $left-right-pad;
   background-color: $faded-blue;
+
+  a {
+    width: 100%;
+    text-decoration: none;
+    color: white;
+
+    li {
+      border-radius: 0 !important;
+    }
+  }
   color: white;
 
   ul {

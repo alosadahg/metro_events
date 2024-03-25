@@ -5,6 +5,8 @@ export const EventContext = createContext();
 
 const EventProvider = ({ children }) => {
   const [data, setData] = useState([]);
+  const [currentEvent, setCurrentEvent] = useState({});
+  const [currentEventIndex, setCurrentEventIndex] = useState(-1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -15,7 +17,7 @@ const EventProvider = ({ children }) => {
           "https://events-api-iuta.onrender.com/event/view-all"
         );
         setData(response.data);
-        console.log(response);
+        // console.log(response);
       } catch (error) {
         setError(error);
       } finally {
@@ -27,7 +29,11 @@ const EventProvider = ({ children }) => {
   }, []);
 
   return (
-    <EventContext.Provider value={[data]}>{children}</EventContext.Provider>
+    <EventContext.Provider
+      value={{ data, currentEvent, setCurrentEvent, setCurrentEventIndex }}
+    >
+      {children}
+    </EventContext.Provider>
   );
 };
 

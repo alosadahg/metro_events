@@ -12,6 +12,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+import { useContext } from "react";
+import { UserContext } from "../../Context/LoginContext";
 
 const defaultTheme = createTheme();
 
@@ -42,12 +44,13 @@ const Login = () => {
         }
       );
       const user = response.data;
-      console.log(response);
+      // console.log(response);
       if (user && credsNotEmpty) {
         if (user.user_type === "admin") {
           navigate("/dashboardadmin");
         } else {
-          navigate("/event-discovery");
+          navigate(`/event-discovery/${user.uid}`);
+          // navigate(`/event-discovery`);
         }
       } else {
         setError("Invalid email or password");
