@@ -80,11 +80,13 @@ const Header = () => {
 
               {userData.user_type === "organizer" && (
                 <Link to={"/organizer-dashboard"}>
-                  <li>Dashboard</li>
+                  <li>Organizer Dashboard</li>
                 </Link>
               )}
 
-              <li>Logout</li>
+              <Link to={"/login"}>
+                <li>Logout</li>
+              </Link>
             </ul>
           )}
         </li>
