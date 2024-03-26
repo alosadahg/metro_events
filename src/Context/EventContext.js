@@ -64,7 +64,6 @@ const EventProvider = ({ children }) => {
         myEvents,
         fetchMyEvents,
         fetchAllEvents,
-        setAllEvents,
       }}
     >
       {children}
