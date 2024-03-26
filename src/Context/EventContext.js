@@ -18,48 +18,41 @@ const EventProvider = ({ children }) => {
 
   console.log(myEvents);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "https://events-api-iuta.onrender.com/event/view-all"
-        );
-        setData(response.data);
-        // console.log(response);
-      } catch (error) {
-        setError(error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchAllEvents = async () => {
+    try {
+      const response = await axios.get(
+        "https://events-api-iuta.onrender.com/event/view-all"
+      );
+      setData(response.data);
+      // console.log(response);
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    fetchData();
-  }, []);
+  const fetchMyEvents = async () => {
+    try {
+      const response = await axios.get(
+        "https://events-api-iuta.onrender.com/attend-event/view-all"
+      );
+      // console.log(response);
 
-  useEffect(() => {
-    const fetchMyEvents = async () => {
-      try {
-        const response = await axios.get(
-          "https://events-api-iuta.onrender.com/attend-event/view-all"
-        );
-        // console.log(response);
-
-        let events = [];
-        response.data.forEach((event) => {
-          if (event.userid === userData.uid) {
-            events.push(event);
-          }
-        });
-        setMyEvents(events);
-      } catch (error) {
-        // setError(error);
-        console.log(error);
-      } finally {
-        // setLoading(false);
-      }
-    };
-    fetchMyEvents();
-  }, []);
+      let events = [];
+      response.data.forEach((event) => {
+        if (event.userid === userData.uid) {
+          events.push(event);
+        }
+      });
+      setMyEvents(events);
+    } catch (error) {
+      // setError(error);
+      console.log(error);
+    } finally {
+      // setLoading(false);
+    }
+  };
 
   return (
     <EventContext.Provider
@@ -69,6 +62,8 @@ const EventProvider = ({ children }) => {
         setCurrentEvent,
         setCurrentEventIndex,
         myEvents,
+        fetchMyEvents,
+        fetchAllEvents,
       }}
     >
       {children}

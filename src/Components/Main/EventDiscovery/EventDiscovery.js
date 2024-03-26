@@ -1,11 +1,17 @@
 import EventFilters from "./EventFilters";
 import Thumbnail from "./Thumbnail";
 import Modal from "../../Modal/Modal";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { EventContext } from "../../../Context/EventContext";
 
 const EventDiscovery = () => {
   const { data } = useContext(EventContext);
+  const { fetchMyEvents, fetchAllEvents } = useContext(EventContext);
+
+  useEffect(() => {
+    fetchMyEvents();
+    fetchAllEvents();
+  }, []);
 
   return (
     <div className="EventDiscovery">
