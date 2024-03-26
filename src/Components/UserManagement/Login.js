@@ -45,16 +45,16 @@ const Login = () => {
       );
       const user = response.data;
       // console.log(response);
-      if (user && credsNotEmpty) {
+      if(user=="Login failed") {
+        setError("Invalid email or password");
+      } else if (user && credsNotEmpty) {
         if (user.user_type === "admin") {
           navigate("/dashboardadmin");
         } else {
           navigate(`/event-discovery/${user.uid}`);
           // navigate(`/event-discovery`);
         }
-      } else {
-        setError("Invalid email or password");
-      }
+      } 
     } catch (error) {
       console.error("Error fetching user data:", error);
       setError("An error occurred while logging in");
