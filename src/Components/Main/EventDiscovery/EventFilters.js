@@ -28,15 +28,15 @@ const EventFilters = () => {
         </p>
         <li>
           <input type="checkbox" />
-          Oten 1
+          Category 1
         </li>{" "}
         <li>
           <input type="checkbox" />
-          Oten 1
+          Category 1
         </li>{" "}
         <li>
           <input type="checkbox" />
-          Oten 1
+          Category 1
         </li>
       </ul>
     </div>

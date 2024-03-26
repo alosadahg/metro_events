@@ -9,12 +9,12 @@ const HeaderNotif = ({ title, description, isRead, status }) => {
       style={{ display: "visible" }}
     >
       <FontAwesomeIcon className="icon" icon={faCircle} />
-      <div className={`content ${!isRead && "unread-notifs"}`}>
+      <div className={`content ${isRead==0 && "unread-notifs"}`}>
         <h4 className="title">{title}</h4>
         <p>{description}</p>
         <p>{status}</p>
       </div>
-      {isRead && <FontAwesomeIcon className="notif-blue" icon={faCircle} />}
+      {isRead==1 && <FontAwesomeIcon className="notif-blue" icon={faCircle} />}
     </div>
   );
 };

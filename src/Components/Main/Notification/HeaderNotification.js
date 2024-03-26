@@ -52,6 +52,8 @@ const HeaderNotification = () => {
         return "Organizer has rejected your request to join this event";
       case "interested":
         return "You have submitted a request to join this event";
+      case "cancelled":
+        return "You have cancelled your request to join this event";
       default:
         return "";
     }
@@ -88,7 +90,7 @@ const HeaderNotification = () => {
             <HeaderNotif
               title={event ? event.eventname : "Unknown Event"}
               description={getEventStatus(event)}
-              isRead={false}
+              isRead={event.isread}
               status={getStatusMessage(notif.status)}
             />
           );
