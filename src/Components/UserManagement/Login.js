@@ -45,7 +45,7 @@ const Login = () => {
       );
       const user = response.data;
       // console.log(response);
-      if (user == "Login failed") {
+      if (user === "Login failed") {
         setError("Invalid email or password");
       } else if (user && credsNotEmpty) {
         if (user.user_type === "admin") {

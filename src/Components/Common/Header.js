@@ -43,7 +43,7 @@ const Header = () => {
         <h2>MetroEvents</h2>
       </Link>
       <ul>
-        <li>Welcome, {userData && userData.email}!</li>
+        <li className="name">Welcome, {userData && userData.email}!</li>
         <li className="notif">
           <FontAwesomeIcon
             icon={faBell}
