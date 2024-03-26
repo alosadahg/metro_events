@@ -6,14 +6,49 @@ import {
   faQuestionCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
+import { UserContext } from "../../../Context/LoginContext";
 
 const ExpandedEvent = () => {
   const { currentEvent, myEvents } = useContext(EventContext);
   const [eventStatus, setEventStatus] = useState("");
+  const { userData } = useContext(UserContext);
 
   // console.log(currentEvent);
-  // console.log(myEvents);
+  console.log(myEvents);
   // console.log(eventStatus);
+
+  // console.log(userData);
+  // console.log(currentEvent);
+
+  const handleJoininEvent = async () => {
+    try {
+      // setIsLoading(true); // Set loading state to true
+
+      const response = await axios.post(
+        "https://events-api-iuta.onrender.com/attend-event/interested",
+        {
+          eventid: currentEvent.eid,
+          userid: userData.uid,
+        },
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      );
+
+      console.log(response);
+      if (response.data) {
+        setEventStatus("interested");
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+      // setError("An error occurred while logging in");
+    } finally {
+      // setIsLoading(false); // Set loading state to false after request completes
+    }
+  };
 
   useEffect(() => {
     myEvents.forEach((event) => {
@@ -68,7 +103,7 @@ const ExpandedEvent = () => {
         </p>
       )}
 
-      <button>Join Event</button>
+      <button onClick={() => handleJoininEvent()}>Join Event</button>
     </div>
   );
 };

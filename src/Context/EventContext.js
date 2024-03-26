@@ -12,7 +12,7 @@ const EventProvider = ({ children }) => {
   const [error, setError] = useState(null);
 
   const [myEvents, setMyEvents] = useState([]);
-  const [userData] = useContext(UserContext);
+  const { userData } = useContext(UserContext);
 
   // console.log(userData);
 

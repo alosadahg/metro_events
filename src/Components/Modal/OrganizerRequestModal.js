@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { UserContext } from "../../Context/LoginContext";
 
 const OrganizerRequestModal = () => {
-  const [userData] = useContext(UserContext);
+  const { userData } = useContext(UserContext);
 
   // console.log(userData);
   const updateOrganizerStatus = async (e) => {

@@ -12,7 +12,7 @@ const Header = () => {
   const [isNotifClicked, setIsNotifClicked] = useState(false);
   const [isUserDropdown, setIsUserDropdown] = useState(false);
 
-  const [userData, setUserData] = useContext(UserContext);
+  const { userData, setUserData } = useContext(UserContext);
   const { userID } = useParams();
 
   useEffect(() => {
