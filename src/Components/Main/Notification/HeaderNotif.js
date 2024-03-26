@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { faCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { Avatar } from "@mui/material";
+import { UserContext } from "../../../Context/LoginContext";
 
 const HeaderNotif = ({ title, description, isRead, status, notif, event }) => {
+  const [userData, setUserData] = useContext(UserContext);
   const [clicked, setClicked] = useState(false);
   const [localIsRead, setLocalIsRead] = useState(isRead);
 
@@ -13,7 +15,7 @@ const HeaderNotif = ({ title, description, isRead, status, notif, event }) => {
   const handleClick = () => {
     if (localIsRead === 0) {
       setClicked(true);
-      setLocalIsRead(1); // Update the local state
+      setLocalIsRead(1);
       const fetchData = async () => {
         try {
           const response = await axios.put(
@@ -36,7 +38,30 @@ const HeaderNotif = ({ title, description, isRead, status, notif, event }) => {
         }
       };
 
-      fetchData();
+      const fetchOrganizerData = async () => {
+        try {
+          const response = await axios.put(
+            "https://events-api-iuta.onrender.com/attend-event/organizer-notified",
+            {
+              id: notif.id,
+              isread: 1,
+            },
+            {
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+              },
+            }
+          );
+          console.log(response.data);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      if (notif.userid == userData.uid) {
+        fetchData();
+      } else {
+        fetchOrganizerData();
+      }
     }
   };
 
