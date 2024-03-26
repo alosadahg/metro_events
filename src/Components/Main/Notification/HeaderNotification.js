@@ -9,6 +9,7 @@ const HeaderNotification = () => {
   const { userID } = useParams();
   const [notifs, setNotifs] = useState({});
   const [loading, setLoading] = useState(true);
+  const [unreadOnly, setUnreadOnly] = useState(false); // New state to manage unread only notifications
 
   useEffect(() => {
     const fetchData = async () => {
@@ -59,6 +60,10 @@ const HeaderNotification = () => {
     }
   };
 
+  const handleViewUnread = () => {
+    setUnreadOnly(true); 
+  };
+
   const getEventStatus = (event) => {
     const capitalizedStatus = event.status.charAt(0).toUpperCase() + event.status.slice(1);
   
@@ -72,6 +77,8 @@ const HeaderNotification = () => {
     return `${capitalizedStatus} event on ${formattedStartDate}`;
   };
 
+  const filteredNotifs = unreadOnly ? Object.values(notifs).filter(notif => notif.isread === 0) : Object.values(notifs);
+
   return (
     <div className="HeaderNotification">
       <div className="division">
@@ -79,19 +86,22 @@ const HeaderNotification = () => {
         <p className="see-all">See all</p>
       </div>
       <div className="division">
-        <p className="active">All</p>
-        <p>Unread</p>
+        <p className={!unreadOnly ? "active" : ""} onClick={() => setUnreadOnly(false)}>All</p>
+        <p className={unreadOnly ? "active" : ""} onClick={handleViewUnread}>Unread</p>
       </div>
 
       <div className="notif-content">
-        {Object.values(notifs).map((notif, i) => {
+        {filteredNotifs.map((notif, i) => {
           const event = findEventById(notif.eventid);
           return (
             <HeaderNotif
+              key={i}
               title={event ? event.eventname : "Unknown Event"}
               description={getEventStatus(event)}
-              isRead={event.isread}
+              isRead={notif.isread}
               status={getStatusMessage(notif.status)}
+              notif={notif}
+              event={event}
             />
           );
         })}
