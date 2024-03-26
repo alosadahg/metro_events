@@ -63,7 +63,9 @@ const Header = () => {
               <li>Profile</li>
               {userData.user_type !== "organizer" && (
                 <>
-                  <li>Joined events</li>
+                  <Link to={"/joined-events"}>
+                    <li>Joined events</li>
+                  </Link>
                   <li
                     onClick={() => {
                       setModalState({

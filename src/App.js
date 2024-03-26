@@ -13,6 +13,7 @@ import EventProvider from "./Context/EventContext.js";
 import LoggedUserProvider, { UserContext } from "./Context/LoginContext.js";
 import ExpandedEvent from "./Components/Main/ExpandedEvent/ExpandedEvent";
 import { useContext } from "react";
+import JoinedEvents from "./Components/Main/JoinedEvents/JoinedEvents.js";
 
 const App = () => {
   return (
@@ -27,12 +28,14 @@ const App = () => {
                 <Route path="/dashboard/:userId" element={<Dashboard />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Registration />} />
+
                 <Route
                   path="/event-discovery/:userID"
                   // path="/event-discovery"
                   element={
                     <>
                       <Header />
+
                       <main>
                         {/* note: main tag has zero padding/margin */}
                         <PictureBox />
@@ -49,6 +52,18 @@ const App = () => {
 
                       <main>
                         <ExpandedEvent />
+                      </main>
+                    </>
+                  }
+                />
+                <Route
+                  path="/joined-events"
+                  element={
+                    <>
+                      <Header />
+
+                      <main>
+                        <JoinedEvents />
                       </main>
                     </>
                   }

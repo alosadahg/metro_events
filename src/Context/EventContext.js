@@ -5,7 +5,7 @@ import { UserContext } from "./LoginContext";
 export const EventContext = createContext();
 
 const EventProvider = ({ children }) => {
-  const [data, setData] = useState([]);
+  const [allEvents, setAllEvents] = useState([]);
   const [currentEvent, setCurrentEvent] = useState({});
   const [currentEventIndex, setCurrentEventIndex] = useState(-1);
   const [loading, setLoading] = useState(true);
@@ -16,14 +16,14 @@ const EventProvider = ({ children }) => {
 
   // console.log(userData);
 
-  console.log(myEvents);
+  // console.log(myEvents);
 
   const fetchAllEvents = async () => {
     try {
       const response = await axios.get(
         "https://events-api-iuta.onrender.com/event/view-all"
       );
-      setData(response.data);
+      setAllEvents(response.data);
       // console.log(response);
     } catch (error) {
       setError(error);
@@ -57,7 +57,7 @@ const EventProvider = ({ children }) => {
   return (
     <EventContext.Provider
       value={{
-        data,
+        allEvents,
         currentEvent,
         setCurrentEvent,
         setCurrentEventIndex,

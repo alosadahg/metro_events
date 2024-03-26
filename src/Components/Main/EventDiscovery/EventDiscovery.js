@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import { EventContext } from "../../../Context/EventContext";
 
 const EventDiscovery = () => {
-  const { data } = useContext(EventContext);
+  const { allEvents } = useContext(EventContext);
   const { fetchMyEvents, fetchAllEvents } = useContext(EventContext);
 
   useEffect(() => {
@@ -28,7 +28,7 @@ const EventDiscovery = () => {
       <div className="Browse">
         <EventFilters />
         <div className="Thumbnails">
-          {data.map((item, i) => (
+          {allEvents.map((item, i) => (
             <Thumbnail
               key={i}
               thumbnail={item.thumbnail}

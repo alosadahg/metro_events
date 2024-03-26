@@ -3,10 +3,12 @@ import HeaderNotif from "./HeaderNotif";
 import { EventContext } from "./../../../Context/EventContext";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { UserContext } from "../../../Context/LoginContext";
 
 const HeaderNotification = () => {
-  const { data } = useContext(EventContext);
+  const { allEvents } = useContext(EventContext);
   const { userID } = useParams();
+  const { userData } = useContext(UserContext);
   const [notifs, setNotifs] = useState({});
   const [loading, setLoading] = useState(true);
 
@@ -16,7 +18,7 @@ const HeaderNotification = () => {
         const response = await axios.post(
           "https://events-api-iuta.onrender.com/attend-event/view-by-user",
           {
-            userid: userID,
+            userid: userData.uid,
           },
           {
             headers: {
@@ -33,10 +35,10 @@ const HeaderNotification = () => {
     };
 
     fetchData();
-  }, [userID]);
+  }, [userData]);
 
   const findEventById = (eventId) => {
-    for (const event of data) {
+    for (const event of allEvents) {
       if (event.eid === eventId) {
         return event;
       }
@@ -58,15 +60,16 @@ const HeaderNotification = () => {
   };
 
   const getEventStatus = (event) => {
-    const capitalizedStatus = event.status.charAt(0).toUpperCase() + event.status.slice(1);
-  
+    const capitalizedStatus =
+      event.status.charAt(0).toUpperCase() + event.status.slice(1);
+
     const startDate = new Date(event.startdate);
-    const formattedStartDate = startDate.toLocaleDateString('en-US', {
-      month: 'long',
-      day: 'numeric',
-      year: 'numeric'
+    const formattedStartDate = startDate.toLocaleDateString("en-US", {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
     });
-  
+
     return `${capitalizedStatus} event on ${formattedStartDate}`;
   };
 
