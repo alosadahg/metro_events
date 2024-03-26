@@ -16,12 +16,12 @@ const HeaderNotification = () => {
         const response = await axios.post(
           "https://events-api-iuta.onrender.com/attend-event/view-by-user",
           {
-            userid:userID
+            userid: userID,
           },
           {
             headers: {
-              "Content-Type": "application/x-www-form-urlencoded"
-            }
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
           }
         );
         setNotifs(response.data);

@@ -21,6 +21,7 @@ const Header = () => {
         const response = await axios.get(
           "https://events-api-iuta.onrender.com/user/view-all"
         );
+
         response.data.forEach((user) => {
           if (user.uid === Number(userID)) {
             setUserData(user);
@@ -38,7 +39,9 @@ const Header = () => {
 
   return (
     <nav className="Header">
-      <h2>MetroEvents</h2>
+      <Link to={`/event-discovery/${userID}`}>
+        <h2>MetroEvents</h2>
+      </Link>
       <ul>
         <li>Welcome, {userData && userData.email}!</li>
         <li className="notif">

@@ -45,6 +45,7 @@ const Login = () => {
       );
       const user = response.data;
       // console.log(response);
+      console.log(user);
       if (user && credsNotEmpty) {
         if (user.user_type === "admin") {
           navigate("/dashboardadmin");
@@ -68,7 +69,12 @@ const Login = () => {
       <Grid
         container
         component="main"
-        sx={{ height: "100vh", justifyContent: "center", alignItems: "center", backgroundColor: "#455a71"}}
+        sx={{
+          height: "100vh",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#455a71",
+        }}
       >
         <CssBaseline />
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
