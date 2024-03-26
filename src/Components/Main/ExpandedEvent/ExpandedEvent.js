@@ -10,7 +10,7 @@ import axios from "axios";
 import { UserContext } from "../../../Context/LoginContext";
 
 const ExpandedEvent = () => {
-  const { currentEvent, myEvents } = useContext(EventContext);
+  const { currentEvent, myEvents, fetchMyEvents } = useContext(EventContext);
   const [eventStatus, setEventStatus] = useState("");
   const { userData } = useContext(UserContext);
 
@@ -41,6 +41,7 @@ const ExpandedEvent = () => {
       console.log(response);
       if (response.data) {
         setEventStatus("interested");
+        fetchMyEvents();
       }
     } catch (error) {
       console.error("Error fetching user data:", error);
