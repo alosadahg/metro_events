@@ -24,6 +24,8 @@ const Login = () => {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false); // Add loading state
 
+  const { setUserData } = useContext(UserContext);
+
   const credsNotEmpty = email !== "" && password !== "";
 
   const handleSubmit = async (event) => {
@@ -52,6 +54,7 @@ const Login = () => {
           navigate("/dashboardadmin");
         } else {
           navigate(`/event-discovery/${user.uid}`);
+          setUserData(user);
           // navigate(`/event-discovery`);
         }
       }

@@ -14,6 +14,8 @@ import LoggedUserProvider, { UserContext } from "./Context/LoginContext.js";
 import ExpandedEvent from "./Components/Main/ExpandedEvent/ExpandedEvent";
 import { useContext } from "react";
 import JoinedEvents from "./Components/Main/JoinedEvents/JoinedEvents.js";
+import Modal from "./Components/Modal/Modal";
+import EventReminders from "./Components/Main/EventReminders/EventReminders.js";
 
 const App = () => {
   return (
@@ -69,6 +71,8 @@ const App = () => {
                   }
                 />
               </Routes>
+              <Modal />
+              <EventReminders />
             </BrowserRouter>
           </EventProvider>
         </LoggedUserProvider>

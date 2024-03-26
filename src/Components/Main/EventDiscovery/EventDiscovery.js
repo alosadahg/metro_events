@@ -1,6 +1,5 @@
 import EventFilters from "./EventFilters";
 import Thumbnail from "./Thumbnail";
-import Modal from "../../Modal/Modal";
 import { useContext, useEffect, useState } from "react";
 import { EventContext } from "../../../Context/EventContext";
 
@@ -40,8 +39,6 @@ const EventDiscovery = () => {
           ))}
         </div>
       </div>
-
-      <Modal />
     </div>
   );
 };

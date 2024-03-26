@@ -85,20 +85,26 @@ const ExpandedEvent = () => {
       {/* checks */}
       {eventStatus === "approved" ? (
         <p className="request-popup">
-          <FontAwesomeIcon className="circle-check" icon={faCircleCheck} /> Your
-          request has been approved by the organizer.
+          <FontAwesomeIcon
+            className="circle-check check-circle"
+            icon={faCircleCheck}
+          />{" "}
+          Your request has been approved by the organizer.
         </p>
       ) : eventStatus === "interested" ? (
         <p className="request-popup">
           <FontAwesomeIcon
-            className="circle-check request"
+            className="circle-check request check-circle"
             icon={faCircleCheck}
           />{" "}
           Your request to join has been forwarded to the organizer.
         </p>
       ) : (
         <p className="request-popup">
-          <FontAwesomeIcon className=" no-request" icon={faQuestionCircle} />{" "}
+          <FontAwesomeIcon
+            className="check-circle no-request"
+            icon={faQuestionCircle}
+          />{" "}
           You can join this event by clicking the button below.
         </p>
       )}

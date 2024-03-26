@@ -6,6 +6,7 @@ import { ModalContext } from "../../Context/ModalContext";
 import { UserContext } from "../../Context/LoginContext";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
+import { EventContext } from "../../Context/EventContext";
 
 const Header = () => {
   const [modalState, setModalState] = useContext(ModalContext);
@@ -13,6 +14,7 @@ const Header = () => {
   const [isUserDropdown, setIsUserDropdown] = useState(false);
 
   const { userData, setUserData } = useContext(UserContext);
+  const { setAllEvents } = useContext(EventContext);
   const { userID } = useParams();
 
   useEffect(() => {
