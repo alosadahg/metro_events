@@ -46,6 +46,10 @@
     .circle-check {
       color: greenyellow;
     }
+
+    .request {
+      color: #4fe5ef;
+    }
   }
 
   button {
@@ -57,5 +61,11 @@
     color: white;
     background-color: $faded-blue;
     margin: 20px 0;
+  }
+
+  button:hover {
+    background-color: rgb(22, 59, 78);
+    padding: 11px;
+    transition: 0.3s;
   }
 }

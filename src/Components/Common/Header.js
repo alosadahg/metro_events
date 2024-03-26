@@ -39,7 +39,7 @@ const Header = () => {
 
   return (
     <nav className="Header">
-      <Link to={`/event-discovery/${userID}`}>
+      <Link to={`/event-discovery/${userData.uid}`}>
         <h2>MetroEvents</h2>
       </Link>
       <ul>
