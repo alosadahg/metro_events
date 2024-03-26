@@ -57,6 +57,19 @@ const HeaderNotification = () => {
     }
   };
 
+  const getEventStatus = (event) => {
+    const capitalizedStatus = event.status.charAt(0).toUpperCase() + event.status.slice(1);
+  
+    const startDate = new Date(event.startdate);
+    const formattedStartDate = startDate.toLocaleDateString('en-US', {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric'
+    });
+  
+    return `${capitalizedStatus} event on ${formattedStartDate}`;
+  };
+
   return (
     <div className="HeaderNotification">
       <div className="division">
@@ -74,6 +87,7 @@ const HeaderNotification = () => {
           return (
             <HeaderNotif
               title={event ? event.eventname : "Unknown Event"}
+              description={getEventStatus(event)}
               isRead={false}
               status={getStatusMessage(notif.status)}
             />
