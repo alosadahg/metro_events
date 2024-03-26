@@ -13,6 +13,10 @@ import EventProvider from "./Context/EventContext.js";
 import LoggedUserProvider, { UserContext } from "./Context/LoginContext.js";
 import ExpandedEvent from "./Components/Main/ExpandedEvent/ExpandedEvent";
 import { useContext } from "react";
+import JoinedEvents from "./Components/Main/JoinedEvents/JoinedEvents.js";
+import Modal from "./Components/Modal/Modal";
+import EventReminders from "./Components/Main/EventReminders/EventReminders.js";
+import EventReviews from "./Components/Main/EventReviews/EventReviews.js";
 
 const App = () => {
   return (
@@ -27,12 +31,14 @@ const App = () => {
                 <Route path="/dashboard/:userId" element={<Dashboard />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Registration />} />
+
                 <Route
                   path="/event-discovery/:userID"
                   // path="/event-discovery"
                   element={
                     <>
                       <Header />
+
                       <main>
                         {/* note: main tag has zero padding/margin */}
                         <PictureBox />
@@ -53,7 +59,21 @@ const App = () => {
                     </>
                   }
                 />
+                <Route
+                  path="/joined-events"
+                  element={
+                    <>
+                      <Header />
+
+                      <main>
+                        <JoinedEvents />
+                      </main>
+                    </>
+                  }
+                />
               </Routes>
+              <Modal />
+              <EventReminders />
             </BrowserRouter>
           </EventProvider>
         </LoggedUserProvider>

@@ -10,6 +10,11 @@
   padding: 10px $left-right-pad;
   background-color: $faded-blue;
 
+  .name {
+    min-width: 300px;
+    text-align: right;
+  }
+
   a {
     width: 100%;
     text-decoration: none;

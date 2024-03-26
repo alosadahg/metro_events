@@ -1,0 +1,49 @@
+.EventReminders {
+  position: fixed;
+  bottom: 60px;
+  right: 60px;
+
+  .content-wrapper {
+    display: flex;
+    align-items: center;
+
+    a {
+      text-decoration: none;
+      color: black;
+    }
+
+    .content {
+      p {
+        margin-bottom: 0;
+        padding: 10px 0;
+      }
+      cursor: pointer;
+      margin-right: -20px;
+      padding-right: 20px;
+      padding-left: 20px;
+      border-radius: 20px;
+      background-color: #ececec;
+      transition: 0.3s;
+    }
+  }
+
+  .icon-container {
+    position: relative;
+    .number {
+      position: absolute;
+      right: 5px;
+      font-size: 1.5rem;
+      color: red;
+      font-weight: 800;
+    }
+  }
+
+  .icon {
+    background-color: #ececec;
+    padding: 20px;
+    border-radius: 50%;
+    font-size: 2rem;
+    color: $faded-blue;
+    cursor: pointer;
+  }
+}

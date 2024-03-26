@@ -1,11 +1,16 @@
 import EventFilters from "./EventFilters";
 import Thumbnail from "./Thumbnail";
-import Modal from "../../Modal/Modal";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { EventContext } from "../../../Context/EventContext";
 
 const EventDiscovery = () => {
-  const { data } = useContext(EventContext);
+  const { allEvents } = useContext(EventContext);
+  const { fetchMyEvents, fetchAllEvents } = useContext(EventContext);
+
+  useEffect(() => {
+    fetchMyEvents();
+    fetchAllEvents();
+  }, []);
 
   return (
     <div className="EventDiscovery">
@@ -22,7 +27,7 @@ const EventDiscovery = () => {
       <div className="Browse">
         <EventFilters />
         <div className="Thumbnails">
-          {data.map((item, i) => (
+          {allEvents.map((item, i) => (
             <Thumbnail
               key={i}
               thumbnail={item.thumbnail}
@@ -34,8 +39,6 @@ const EventDiscovery = () => {
           ))}
         </div>
       </div>
-
-      <Modal />
     </div>
   );
 };

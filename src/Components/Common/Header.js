@@ -6,13 +6,15 @@ import { ModalContext } from "../../Context/ModalContext";
 import { UserContext } from "../../Context/LoginContext";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
+import { EventContext } from "../../Context/EventContext";
 
 const Header = () => {
   const [modalState, setModalState] = useContext(ModalContext);
   const [isNotifClicked, setIsNotifClicked] = useState(false);
   const [isUserDropdown, setIsUserDropdown] = useState(false);
 
-  const [userData, setUserData] = useContext(UserContext);
+  const { userData, setUserData } = useContext(UserContext);
+  const { setAllEvents } = useContext(EventContext);
   const { userID } = useParams();
 
   useEffect(() => {
@@ -21,6 +23,7 @@ const Header = () => {
         const response = await axios.get(
           "https://events-api-iuta.onrender.com/user/view-all"
         );
+
         response.data.forEach((user) => {
           if (user.uid === Number(userID)) {
             setUserData(user);
@@ -38,9 +41,11 @@ const Header = () => {
 
   return (
     <nav className="Header">
-      <h2>MetroEvents</h2>
+      <Link to={`/event-discovery/${userData.uid}`}>
+        <h2>MetroEvents</h2>
+      </Link>
       <ul>
-        <li>Welcome, {userData && userData.email}!</li>
+        <li className="name">Welcome, {userData && userData.email}!</li>
         <li className="notif">
           <FontAwesomeIcon
             icon={faBell}
@@ -60,7 +65,9 @@ const Header = () => {
               <li>Profile</li>
               {userData.user_type !== "organizer" && (
                 <>
-                  <li>Joined events</li>
+                  <Link to={"/joined-events"}>
+                    <li>Joined events</li>
+                  </Link>
                   <li
                     onClick={() => {
                       setModalState({
@@ -77,11 +84,13 @@ const Header = () => {
 
               {userData.user_type === "organizer" && (
                 <Link to={"/organizer-dashboard"}>
-                  <li>Dashboard</li>
+                  <li>Organizer Dashboard</li>
                 </Link>
               )}
 
-              <li>Logout</li>
+              <Link to={"/login"}>
+                <li>Logout</li>
+              </Link>
             </ul>
           )}
         </li>

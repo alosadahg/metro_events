@@ -7,8 +7,9 @@ import { UserContext } from "../../../Context/LoginContext";
 
 const HeaderNotification = () => {
   const { data } = useContext(EventContext);
-  const [userData, setUserData] = useContext(UserContext);
+  const { allEvents } = useContext(EventContext);
   const { userID } = useParams();
+  const { userData } = useContext(UserContext);
   const [notifs, setNotifs] = useState({});
   const [organizerNotifs, setOrganizerNotifs] = useState({});
   const [loading, setLoading] = useState(true);
@@ -22,6 +23,7 @@ const HeaderNotification = () => {
           "https://events-api-iuta.onrender.com/attend-event/view-by-user",
           {
             userid: userID,
+            userid: userData.uid,
           },
           {
             headers: {
@@ -67,7 +69,7 @@ const HeaderNotification = () => {
   }, [userID]);
 
   const findEventById = (eventId) => {
-    for (const event of data) {
+    for (const event of allEvents) {
       if (event.eid === eventId) {
         return event;
       }
@@ -78,9 +80,8 @@ const HeaderNotification = () => {
   const getStatusMessage = (status) => {
     switch (status) {
       case "approved":
-        return "Organizer has approved your request to join this event";
       case "rejected":
-        return "Organizer has rejected your request to join this event";
+        return `Organizer has ${status} your request to join this event`;
       case "interested":
         return "You have submitted a request to join this event";
       case "cancelled":
@@ -155,7 +156,10 @@ const HeaderNotification = () => {
         >
           All
         </p>
-        <p className={unreadOnly && !organizerOnly ? "active" : ""} onClick={handleViewUnread}>
+        <p
+          className={unreadOnly && !organizerOnly ? "active" : ""}
+          onClick={handleViewUnread}
+        >
           Unread
         </p>
         {userData.user_type === "organizer" && (
@@ -169,27 +173,29 @@ const HeaderNotification = () => {
       </div>
 
       <div className="notif-content">
-        {filteredNotifs.length==0 && filteredOrganizerNotifs==0 &&
-        <p>No notifications yet</p>}
-        {filteredOrganizerNotifs==0 && organizerOnly &&
-        <p>No notifications yet</p>}
+        {filteredNotifs.length == 0 && filteredOrganizerNotifs == 0 && (
+          <p>No notifications yet</p>
+        )}
+        {filteredOrganizerNotifs == 0 && organizerOnly && (
+          <p>No notifications yet</p>
+        )}
         {!organizerOnly &&
-        filteredNotifs.map((notif, i) => {
-          const event = findEventById(notif.eventid);
-          if (notif.userid == userData.uid) {
-            return (
-              <HeaderNotif
-                key={i}
-                title={event ? event.eventname : "Unknown Event"}
-                description={getEventStatus(event)}
-                isRead={notif.isread}
-                status={getStatusMessage(notif.status)}
-                notif={notif}
-                event={event}
-              />
-            );
-          }
-        })}
+          filteredNotifs.map((notif, i) => {
+            const event = findEventById(notif.eventid);
+            if (notif.userid == userData.uid) {
+              return (
+                <HeaderNotif
+                  key={i}
+                  title={event ? event.eventname : "Unknown Event"}
+                  description={getEventStatus(event)}
+                  isRead={notif.isread}
+                  status={getStatusMessage(notif.status)}
+                  notif={notif}
+                  event={event}
+                />
+              );
+            }
+          })}
         {userData.user_type === "organizer" &&
           filteredOrganizerNotifs.map((notif, i) => {
             const event = findEventById(notif.eventid);
@@ -205,7 +211,6 @@ const HeaderNotification = () => {
               />
             );
           })}
-        
       </div>
     </div>
   );

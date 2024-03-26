@@ -1,28 +1,80 @@
 .ExpandedEvent {
   padding-top: $header-height;
   display: flex;
-  align-items: center;
   justify-content: center;
+  flex-direction: column;
   min-height: 100vh;
-
-  padding: 50px;
-
-  div {
-    margin: 20px;
-  }
+  padding: 0 300px;
 
   .img-container {
-    width: 500px;
+    width: 100%;
+    margin: 20px 0;
+    margin-top: 100px;
+  }
+
+  .details {
+    .title {
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+    p {
+      margin: 0;
+    }
+
+    .label {
+      font-weight: bold;
+    }
+  }
+
+  .circle {
+    color: #febb02;
+    margin-right: 5px;
   }
 
   img {
-    width: 100%;
+    width: 60%;
     object-fit: cover;
-    border-radius: 20px;
+    // border-radius: 50% 0 50% 0;
+    border-radius: 10px;
+  }
+
+  .request-popup {
+    // background-color: red;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    margin: 0;
+    text-align: right;
+
+    .check-circle {
+      font-size: 1.35rem;
+      margin-right: 10px;
+    }
+
+    .circle-check {
+      color: greenyellow;
+    }
+
+    .request {
+      color: #4fe5ef;
+    }
   }
 
   button {
-    width: 300px;
+    width: 100%;
     cursor: pointer;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    background-color: $faded-blue;
+    margin: 20px 0;
+  }
+
+  button:hover {
+    background-color: rgb(22, 59, 78);
+    padding: 11px;
+    transition: 0.3s;
   }
 }

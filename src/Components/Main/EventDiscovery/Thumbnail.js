@@ -46,7 +46,7 @@ const Thumbnail = ({ thumbnail, date, title, description, event }) => {
     <div
       className="Thumbnail"
       onClick={() => {
-        console.log(event);
+        // console.log(event);
         setCurrentEvent(event);
       }}
     >

@@ -6,7 +6,7 @@ import { Avatar } from "@mui/material";
 import { UserContext } from "../../../Context/LoginContext";
 
 const HeaderNotif = ({ title, description, isRead, status, notif, event }) => {
-  const [userData, setUserData] = useContext(UserContext);
+  const {userData, setUserData} = useContext(UserContext);
   const [clicked, setClicked] = useState(false);
   const [localIsRead, setLocalIsRead] = useState(isRead);
 

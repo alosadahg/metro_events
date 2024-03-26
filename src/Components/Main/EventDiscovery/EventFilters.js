@@ -24,19 +24,19 @@ const EventFilters = () => {
       </ul>{" "}
       <ul>
         <p>
-          Categories <FontAwesomeIcon className="icon" icon={faChevronUp} />
+          Day <FontAwesomeIcon className="icon" icon={faChevronUp} />
         </p>
         <li>
           <input type="checkbox" />
-          Category 1
+          Today
         </li>{" "}
         <li>
           <input type="checkbox" />
-          Category 1
+          Tomorrow
         </li>{" "}
         <li>
           <input type="checkbox" />
-          Category 1
+          Other
         </li>
       </ul>
     </div>

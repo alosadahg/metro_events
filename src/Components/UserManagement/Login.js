@@ -17,12 +17,12 @@ import { UserContext } from "../../Context/LoginContext";
 const defaultTheme = createTheme();
 
 const Login = () => {
-  const [userData, setUserData] = useContext(UserContext);
+  const {userData, setUserData} = useContext(UserContext);
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // Add loading state
 
   const credsNotEmpty = email !== "" && password !== "";
 
@@ -44,8 +44,8 @@ const Login = () => {
         }
       );
       const user = response.data;
-
-      if(user=="Login failed") {
+      // console.log(response);
+      if (user === "Login failed") {
         setError("Invalid email or password");
       } else if (user && credsNotEmpty) {
         if (user.user_type === "admin") {
@@ -53,8 +53,9 @@ const Login = () => {
         } else {
           setUserData(user);
           navigate(`/event-discovery/${user.uid}`);
+          // navigate(`/event-discovery`);
         }
-      } 
+      }
     } catch (error) {
       console.error("Error fetching user data:", error);
       setError("An error occurred while logging in");
@@ -68,7 +69,12 @@ const Login = () => {
       <Grid
         container
         component="main"
-        sx={{ height: "100vh", justifyContent: "center", alignItems: "center", backgroundColor: "#455a71"}}
+        sx={{
+          height: "100vh",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#455a71",
+        }}
       >
         <CssBaseline />
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>

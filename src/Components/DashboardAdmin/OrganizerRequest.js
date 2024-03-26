@@ -101,7 +101,7 @@ export default function OrganizerRequest(props) {
         {
           email: email,
           status: "user"
-        },
+        },  
         {
           headers: {  
             "Content-Type": "application/x-www-form-urlencoded",
