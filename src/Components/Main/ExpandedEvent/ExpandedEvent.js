@@ -8,6 +8,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { UserContext } from "../../../Context/LoginContext";
+import EventReviews from "../EventReviews/EventReviews";
 
 const ExpandedEvent = () => {
   const { currentEvent, myEvents, fetchMyEvents } = useContext(EventContext);
@@ -111,6 +112,8 @@ const ExpandedEvent = () => {
       )}
 
       <button onClick={() => handleJoininEvent()}>Join Event</button>
+
+      <EventReviews />
     </div>
   );
 };

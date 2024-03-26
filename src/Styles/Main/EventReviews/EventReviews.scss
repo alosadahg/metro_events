@@ -1,0 +1,78 @@
+.EventReviews {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+
+  h4 {
+    color: grey;
+    font-weight: 350;
+    font-size: 1.2rem;
+    margin: 10px 0;
+  }
+
+  .review-container {
+    textarea {
+      width: 100%;
+      resize: none;
+      border: none;
+      outline: none;
+      padding: 20px;
+      height: 100px;
+    }
+    .button-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .rating-star {
+        color: #e4e4e4;
+      }
+
+      .rating-star:hover {
+        cursor: pointer;
+      }
+
+      button {
+        width: 85%;
+        background-color: #c8c8c8;
+      }
+
+      button:hover {
+        background-color: #033e5f6f;
+      }
+    }
+  }
+
+  ul {
+    margin: 20px 0;
+    padding: 0;
+    li {
+      padding: 10px;
+      margin: 3px 0;
+      border: 1px solid #e4e4e4;
+
+      .star {
+        color: #febb02;
+      }
+      div:first-child {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        p {
+          margin-bottom: 0 !important;
+        }
+      }
+
+      .icon {
+        font-size: 2rem;
+        margin-right: 10px;
+      }
+    }
+
+    li:hover {
+      border: 1px solid $faded-blue;
+      cursor: pointer;
+    }
+  }
+}

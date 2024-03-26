@@ -16,6 +16,7 @@ import { useContext } from "react";
 import JoinedEvents from "./Components/Main/JoinedEvents/JoinedEvents.js";
 import Modal from "./Components/Modal/Modal";
 import EventReminders from "./Components/Main/EventReminders/EventReminders.js";
+import EventReviews from "./Components/Main/EventReviews/EventReviews.js";
 
 const App = () => {
   return (
