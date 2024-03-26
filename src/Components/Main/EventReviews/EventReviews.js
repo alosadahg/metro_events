@@ -12,10 +12,10 @@ const EventReviews = () => {
   const { currentEvent } = useContext(EventContext);
   const [data, setData] = useState([]);
   const [forceRender, setForceRender] = useState(false);
-  const [userDeets, setUserDeets] = useState({});
 
   const textReviewHandler = (event) => {
-    setTextReview(event.target.value);
+    if (event.target.value.length > 0) setTextReview(event.target.value);
+    else alert("Please enter a review");
   };
 
   const addReviewHandler = () => {
@@ -34,11 +34,8 @@ const EventReviews = () => {
             },
           }
         );
-
-        console.log(response.data);
+        fetchData();
         setTextReview("");
-        fetchReviews();
-        setForceRender(!forceRender);
       } catch (error) {
         console.error("Error adding review:", error);
       }
@@ -47,7 +44,7 @@ const EventReviews = () => {
     addReview();
   };
 
-  const fetchReviews = async () => {
+  const fetchData = async () => {
     try {
       const response = await axios.post(
         `https://events-api-iuta.onrender.com/reviews/view-by-event`,
@@ -60,46 +57,45 @@ const EventReviews = () => {
           },
         }
       );
-
-      console.log(response.data);
-      console.log(typeof (await response.data) === "string");
-      console.log("pos" + currPos);
       const result =
         typeof response.data === "string" ? [] : await response.data;
-      setData(result);
-    } catch (error) {}
+
+      const updatedData = await Promise.all(
+        result.map(async (review) => {
+          try {
+            const response = await axios.post(
+              "https://events-api-iuta.onrender.com/user/view-by-id",
+              {
+                userid: review.userid,
+              },
+              {
+                headers: {
+                  "Content-Type": "application/x-www-form-urlencoded",
+                },
+              }
+            );
+            const { firstname, lastname } = await response.data;
+            return {
+              ...review,
+              firstName: firstname,
+              lastName: lastname,
+            };
+          } catch (error) {
+            console.error("Error fetching user details:", error);
+            return review; // Return original review if an error occurs
+          }
+        })
+      );
+
+      setData(updatedData);
+    } catch (error) {
+      console.error("Error fetching reviews:", error);
+    }
   };
 
   useEffect(() => {
-    fetchReviews();
-  }, [data]);
-
-  // useEffect(() => {
-  //   try {
-  //     const fetchUserDeets = async () => {
-  //       const response = await axios.post(
-  //         "https://events-api-iuta.onrender.com/user/view",
-  //         {
-  //           email: userData.email,
-  //         },
-  //         {
-  //           headers: {
-  //             "Content-Type": "application/x-www-form-urlencoded",
-  //           },
-  //         }
-  //       );
-
-  //       setUserDeets({
-  //         firstName: response.data.firstName,
-  //         lastName: response.data.lastName,
-  //       });
-  //     };
-
-  //     fetchUserDeets();
-  //   } catch (error) {
-  //     console.error("Error fetching user details:", error);
-  //   }
-  // }, []);
+    fetchData();
+  }, [currentEvent.eid]);
 
   const test = (num) => {
     let x = [];
@@ -123,6 +119,7 @@ const EventReviews = () => {
     setCurrPos(-1);
     setIsHovered(false);
   };
+
   return (
     <div className="EventReviews">
       <h4>Write a review</h4>
@@ -160,7 +157,9 @@ const EventReviews = () => {
             <div>
               <div className="user-container">
                 <FontAwesomeIcon className="icon" icon={faUserCircle} />
-                <p>{review.user}</p>
+                <p>
+                  {review.firstName} {review.lastName}
+                </p>
               </div>
               <div>
                 <p>

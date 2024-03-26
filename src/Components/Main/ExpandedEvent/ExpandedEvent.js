@@ -16,7 +16,7 @@ const ExpandedEvent = () => {
   const { userData } = useContext(UserContext);
 
   // console.log(currentEvent);
-  console.log(myEvents);
+  // console.log(myEvents);
   // console.log(eventStatus);
 
   // console.log(userData);
@@ -58,7 +58,7 @@ const ExpandedEvent = () => {
         setEventStatus(event.status);
       }
     });
-  }, [myEvents]);
+  }, [myEvents, currentEvent.eid]);
 
   return (
     <div className="ExpandedEvent">

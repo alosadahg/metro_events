@@ -6,9 +6,9 @@ const LandingPage = () => {
   const [text2, setText2] = useState("");
   const [index, setIndex] = useState(0);
 
-  const textArray = [
+  const [textArray] =  useState([
     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero, non neque! Temporibus beatae asperiores culpa in! Quam ducimus autem error quae aliquid, labore tempora molestias. Ex cumque assumenda ullam tempore?",
-  ];
+  ]);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
