@@ -10,28 +10,26 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
-import { useContext } from "react";
 import { UserContext } from "../../Context/LoginContext";
 
 const defaultTheme = createTheme();
 
 const Login = () => {
+  const {userData, setUserData} = useContext(UserContext);
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false); // Add loading state
 
-  const { setUserData } = useContext(UserContext);
-
   const credsNotEmpty = email !== "" && password !== "";
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      setIsLoading(true); // Set loading state to true
+      setIsLoading(true);
 
       const response = await axios.post(
         "https://events-api-iuta.onrender.com/user/login",
@@ -53,8 +51,8 @@ const Login = () => {
         if (user.user_type === "admin") {
           navigate("/dashboardadmin");
         } else {
-          navigate(`/event-discovery/${user.uid}`);
           setUserData(user);
+          navigate(`/event-discovery/${user.uid}`);
           // navigate(`/event-discovery`);
         }
       }
@@ -62,7 +60,7 @@ const Login = () => {
       console.error("Error fetching user data:", error);
       setError("An error occurred while logging in");
     } finally {
-      setIsLoading(false); // Set loading state to false after request completes
+      setIsLoading(false);
     }
   };
 
@@ -135,7 +133,7 @@ const Login = () => {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
-                disabled={isLoading} // Disable button when loading
+                disabled={isLoading}
               >
                 Sign In
               </Button>
