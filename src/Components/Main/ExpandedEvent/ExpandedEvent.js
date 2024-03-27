@@ -111,7 +111,16 @@ const ExpandedEvent = () => {
         </p>
       )}
 
-      <button onClick={() => handleJoininEvent()}>Join Event</button>
+      <button
+        onClick={() => handleJoininEvent()}
+        style={{
+          pointerEvents: eventStatus === "interested" ? "none" : "auto",
+          backgroundColor:
+            eventStatus === "interested" ? "#e4e4e4" : "$faded-blue",
+        }}
+      >
+        Join Event
+      </button>
 
       <EventReviews />
     </div>

@@ -11,37 +11,41 @@ const EventReviews = () => {
   const { userData } = useContext(UserContext);
   const { currentEvent } = useContext(EventContext);
   const [data, setData] = useState([]);
-  const [forceRender, setForceRender] = useState(false);
+  const [rating, setRating] = useState(-1);
 
   const textReviewHandler = (event) => {
     if (event.target.value.length > 0) setTextReview(event.target.value);
-    else alert("Please enter a review");
   };
 
   const addReviewHandler = () => {
-    const addReview = async () => {
-      try {
-        const response = await axios.post(
-          "https://events-api-iuta.onrender.com/reviews/add",
-          {
-            userid: userData.uid,
-            eventid: currentEvent.eid,
-            review: textReview,
-          },
-          {
-            headers: {
-              "Content-Type": "application/x-www-form-urlencoded",
+    if (textReview.length > 0) {
+      const addReview = async () => {
+        try {
+          const response = await axios.post(
+            "https://events-api-iuta.onrender.com/reviews/add",
+            {
+              userid: userData.uid,
+              eventid: currentEvent.eid,
+              review: textReview,
             },
-          }
-        );
-        fetchData();
-        setTextReview("");
-      } catch (error) {
-        console.error("Error adding review:", error);
-      }
-    };
+            {
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+              },
+            }
+          );
+          fetchData();
+          setTextReview("");
+          setIsClicked(false);
+        } catch (error) {
+          console.error("Error adding review:", error);
+        }
+      };
 
-    addReview();
+      addReview();
+    } else {
+      alert("Please enter a review");
+    }
   };
 
   const fetchData = async () => {
@@ -107,7 +111,8 @@ const EventReviews = () => {
   };
 
   const [isHovered, setIsHovered] = useState(false);
-  const [currPos, setCurrPos] = useState(0);
+  const [isClicked, setIsClicked] = useState(false);
+  const [currPos, setCurrPos] = useState(-1);
 
   const handleMouseEnter = (i) => {
     console.log(i);
@@ -118,6 +123,13 @@ const EventReviews = () => {
   const handleMouseLeave = () => {
     setCurrPos(-1);
     setIsHovered(false);
+  };
+
+  const handleMouseClick = (i) => {
+    console.log(i + 1);
+    setCurrPos(i + 1);
+    setRating(i + 1);
+    setIsClicked(true);
   };
 
   return (
@@ -141,10 +153,11 @@ const EventReviews = () => {
                 className="rating-star"
                 icon={faStar}
                 style={{
-                  color: currPos < i ? "#e4e4e4" : "#febb02",
+                  color: currPos < i && !isClicked ? "#e4e4e4" : "#febb02",
                 }}
                 onMouseEnter={() => handleMouseEnter(i)}
                 onMouseLeave={handleMouseLeave}
+                onClick={() => handleMouseClick(i)}
               />
             ))}
           </div>
@@ -159,13 +172,6 @@ const EventReviews = () => {
                 <FontAwesomeIcon className="icon" icon={faUserCircle} />
                 <p>
                   {review.firstName} {review.lastName}
-                </p>
-              </div>
-              <div>
-                <p>
-                  {test(review.rating).map((star, i) => (
-                    <FontAwesomeIcon key={i} className="star" icon={faStar} />
-                  ))}
                 </p>
               </div>
             </div>
