@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios"; // Import Axios
 import { EventContext } from "../../../Context/EventContext";
+import { UserContext } from "../../../Context/LoginContext";
 
 const JoinedEvents = () => {
   const { myEvents, allEvents, fetchMyEvents } = useContext(EventContext);
   const [joinedEvents, setJoinedEvents] = useState([]);
+  const { userData } = useContext(UserContext);
 
   useEffect(() => {
     fetchMyEvents();
@@ -20,11 +22,14 @@ const JoinedEvents = () => {
   }, [myEvents, allEvents]);
 
   const handleCancel = async (eventId) => {
+    console.log(userData.uid);
+    console.log(eventId);
     try {
       if (eventId) {
         const response = await axios.delete(
           "https://events-api-iuta.onrender.com/attend-event/cancel",
           {
+            userid: userData.uid,
             eventid: eventId,
           }
         );

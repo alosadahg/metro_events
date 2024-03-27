@@ -5,7 +5,6 @@ const OrganizerDashboard = () => {
     <div>
       <table>
         <thead>
-          <th>Name</th>
           <th></th>
         </thead>
       </table>

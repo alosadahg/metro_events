@@ -17,6 +17,7 @@ import JoinedEvents from "./Components/Main/JoinedEvents/JoinedEvents.js";
 import Modal from "./Components/Modal/Modal";
 import EventReminders from "./Components/Main/EventReminders/EventReminders.js";
 import EventReviews from "./Components/Main/EventReviews/EventReviews.js";
+import OrganizerDashboard from "./Components/Main/OrganizerDashboard/OrganizerDashboard.js";
 
 const App = () => {
   return (
@@ -67,6 +68,18 @@ const App = () => {
 
                       <main>
                         <JoinedEvents />
+                      </main>
+                    </>
+                  }
+                />
+                <Route
+                  path="/organizer-dashboard"
+                  element={
+                    <>
+                      <Header />
+
+                      <main>
+                        <OrganizerDashboard />
                       </main>
                     </>
                   }
