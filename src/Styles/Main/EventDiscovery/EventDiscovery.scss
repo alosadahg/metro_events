@@ -87,6 +87,12 @@
               font-size: 1.7rem;
               color: $date-red;
             }
+
+            .upvotes {
+              font-size: 80%;
+              font-weight: bold;
+              box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            }
           }
           .description {
             p.title {

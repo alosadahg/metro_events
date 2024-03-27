@@ -34,6 +34,16 @@ const EventReviews = () => {
               },
             }
           );
+
+          if (
+            typeof response.data === "string" &&
+            response.data === "Review already exists"
+          ) {
+            alert("You have already added a review for this event!");
+
+            setTextReview("");
+            return;
+          }
           fetchData();
           setTextReview("");
           setIsClicked(false);
@@ -61,6 +71,7 @@ const EventReviews = () => {
           },
         }
       );
+
       const result =
         typeof response.data === "string" ? [] : await response.data;
 
