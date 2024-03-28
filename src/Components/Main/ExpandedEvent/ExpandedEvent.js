@@ -5,6 +5,8 @@ import {
   faCircleCheck,
   faQuestionCircle,
 } from "@fortawesome/free-solid-svg-icons";
+import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
+import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { UserContext } from "../../../Context/LoginContext";
@@ -14,6 +16,8 @@ const ExpandedEvent = () => {
   const { currentEvent, myEvents, fetchMyEvents } = useContext(EventContext);
   const [eventStatus, setEventStatus] = useState("");
   const { userData } = useContext(UserContext);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
 
   // console.log(currentEvent);
   // console.log(myEvents);
@@ -51,6 +55,27 @@ const ExpandedEvent = () => {
       // setIsLoading(false); // Set loading state to false after request completes
     }
   };
+  const upvoteEvent = async () => {
+    if (isHovered) {
+      try {
+        const response = await axios.put(
+          "https://events-api-iuta.onrender.com/event/upvote",
+          {
+            eventid: currentEvent.eid,
+          },
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+          }
+        );
+        const result = await response.data;
+        console.log("myresult" + result);
+      } catch (error) {
+        console.error("Error upvoting event:", error);
+      }
+    }
+  };
 
   useEffect(() => {
     myEvents.forEach((event) => {
@@ -66,7 +91,32 @@ const ExpandedEvent = () => {
         <img src={currentEvent.thumbnail} alt="" />
       </div>
       <div className="details">
-        <p className="title">{currentEvent.eventname}</p>
+        <div className="title">
+          {currentEvent.eventname}
+          <div>
+            {isHovered || isClicked ? (
+              <ThumbUpAltIcon
+                className="upvote"
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+                onClick={() => {
+                  upvoteEvent();
+                  setIsClicked(true);
+                }}
+              />
+            ) : (
+              <ThumbUpOffAltIcon
+                className="upvote"
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+                onClick={() => {
+                  upvoteEvent();
+                  setIsClicked(true);
+                }}
+              />
+            )}
+          </div>
+        </div>
 
         <div>
           <FontAwesomeIcon className="circle" icon={faCircle} />

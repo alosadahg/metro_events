@@ -1,8 +1,9 @@
 import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { EventContext } from "../../../Context/EventContext";
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 
-const Thumbnail = ({ thumbnail, date, title, description, event }) => {
+const Thumbnail = ({ thumbnail, date, title, description, event, upvotes }) => {
   const mL = [
     "January",
     "February",
@@ -59,6 +60,11 @@ const Thumbnail = ({ thumbnail, date, title, description, event }) => {
           <div className="date">
             <p>{convertedDate.getDate()}</p>
             <p>{mS[convertedDate.getMonth()]}</p>
+
+            <div className="upvotes">
+              <ArrowDropUpIcon />
+              {upvotes}
+            </div>
           </div>
           <div className="description">
             <p className="title">{title}</p>

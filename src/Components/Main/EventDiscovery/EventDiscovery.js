@@ -6,10 +6,12 @@ import { EventContext } from "../../../Context/EventContext";
 const EventDiscovery = () => {
   const { allEvents } = useContext(EventContext);
   const { fetchMyEvents, fetchAllEvents } = useContext(EventContext);
+  const [sortedEvents, setSortedEvents] = useState([]);
 
   useEffect(() => {
     fetchMyEvents();
     fetchAllEvents();
+    setSortedEvents(allEvents.sort((a, b) => b.upvotes - a.upvotes));
   }, []);
 
   return (
@@ -27,7 +29,7 @@ const EventDiscovery = () => {
       <div className="Browse">
         <EventFilters />
         <div className="Thumbnails">
-          {allEvents.map((item, i) => (
+          {sortedEvents.map((item, i) => (
             <Thumbnail
               key={i}
               thumbnail={item.thumbnail}
@@ -35,6 +37,7 @@ const EventDiscovery = () => {
               title={item.eventname}
               description={item.description}
               event={item}
+              upvotes={item.upvotes}
             />
           ))}
         </div>
