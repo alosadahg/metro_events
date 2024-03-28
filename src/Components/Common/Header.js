@@ -35,7 +35,6 @@ const Header = () => {
         // setLoading(false);
       }
     };
-
     fetchData();
   }, []);
 

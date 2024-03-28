@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import axios from "axios"; // Import Axios
+import axios from "axios"; 
 import { EventContext } from "../../../Context/EventContext";
 import { UserContext } from "../../../Context/LoginContext";
 
@@ -7,10 +7,15 @@ const JoinedEvents = () => {
   const { myEvents, allEvents, fetchMyEvents } = useContext(EventContext);
   const [joinedEvents, setJoinedEvents] = useState([]);
   const { userData } = useContext(UserContext);
+  const [clickedDeleted, setIsClicked] = useState(false);
 
   useEffect(() => {
     fetchMyEvents();
   }, []);
+
+  useEffect(() => {
+    fetchMyEvents();
+  }, [clickedDeleted]);
 
   useEffect(() => {
     if (myEvents.length > 0) {
@@ -22,29 +27,34 @@ const JoinedEvents = () => {
   }, [myEvents, allEvents]);
 
   const handleCancel = async (eventId) => {
-    console.log(userData.uid);
-    console.log(eventId);
     try {
       if (eventId) {
+        setIsClicked(true);
+        console.log(userData.uid);
+        console.log(eventId);
         const response = await axios.delete(
           "https://events-api-iuta.onrender.com/attend-event/cancel",
           {
-            userid: userData.uid,
-            eventid: eventId,
+            data: {
+              userid: userData.uid,
+              eventid: eventId,
+            },
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded", 
+            },
           }
         );
-
+        setJoinedEvents(prevEvents => prevEvents.filter(event => event.eid !== eventId));
         console.log(response);
-        fetchMyEvents();
+        // fetchMyEvents();
       } else {
         console.error("No event ID provided for cancellation");
       }
     } catch (error) {
       console.error("Error cancelling event:", error);
       alert("Failed to cancel event. Please try again later.");
-    } finally {
-      // setIsLoading(false); // Set loading state to false after request completes
     }
+    setIsClicked(false);
   };
 
   return (

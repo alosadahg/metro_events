@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { Avatar } from "@mui/material";
 import { UserContext } from "../../../Context/LoginContext";
+import { EventContext } from "../../../Context/EventContext";
 
 const HeaderNotif = ({ title, description, isRead, status, notif, event }) => {
   const {userData, setUserData} = useContext(UserContext);
@@ -13,7 +14,7 @@ const HeaderNotif = ({ title, description, isRead, status, notif, event }) => {
   console.log(notif);
 
   const handleClick = () => {
-    if (localIsRead === 0) {
+    if (localIsRead === 0 && notif!=event) {
       setClicked(true);
       setLocalIsRead(1);
       const fetchData = async () => {

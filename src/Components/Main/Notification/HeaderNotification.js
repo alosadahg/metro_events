@@ -6,7 +6,6 @@ import axios from "axios";
 import { UserContext } from "../../../Context/LoginContext";
 
 const HeaderNotification = () => {
-  const { data } = useContext(EventContext);
   const { allEvents } = useContext(EventContext);
   const { userID } = useParams();
   const { userData } = useContext(UserContext);
@@ -15,23 +14,21 @@ const HeaderNotification = () => {
   const [loading, setLoading] = useState(true);
   const [unreadOnly, setUnreadOnly] = useState(false);
   const [organizerOnly, setOrganizerOnly] = useState(false);
+  const [newEvents, setNewEventsOnly] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.post(
-          "https://events-api-iuta.onrender.com/attend-event/view-by-user",
-          {
-            userid: userID,
-            userid: userData.uid,
-          },
+        const response = await axios.get(
+          "https://events-api-iuta.onrender.com/attend-event/view-all",
           {
             headers: {
               "Content-Type": "application/x-www-form-urlencoded",
             },
           }
         );
-        setNotifs(response.data);
+        const userEvents = response.data.filter(event => event.userid === userData.uid);
+        setNotifs(userEvents);
       } catch (error) {
         console.log(error);
       } finally {
@@ -108,16 +105,25 @@ const HeaderNotification = () => {
   const handleViewUnread = () => {
     setOrganizerOnly(false);
     setUnreadOnly(true);
+    setNewEventsOnly(false);
   };
 
   const handleViewOrganizer = () => {
     setUnreadOnly(false);
     setOrganizerOnly(true);
+    setNewEventsOnly(false);
   };
 
   const handleViewAll = () => {
     setUnreadOnly(false);
     setOrganizerOnly(false);
+    setNewEventsOnly(false);
+  };
+
+  const handleViewNewEvents = () => {
+    setUnreadOnly(false);
+    setOrganizerOnly(false);
+    setNewEventsOnly(true);
   };
 
   const getEventStatus = (event) => {
@@ -151,7 +157,7 @@ const HeaderNotification = () => {
       </div>
       <div className="division">
         <p
-          className={!unreadOnly && !organizerOnly ? "active" : ""}
+          className={!unreadOnly && !organizerOnly && !newEvents ? "active" : ""}
           onClick={handleViewAll}
         >
           All
@@ -170,6 +176,12 @@ const HeaderNotification = () => {
             Requests
           </p>
         )}
+        <p
+            className={newEvents ? "active" : ""}
+            onClick={handleViewNewEvents}
+          >
+            New Events
+          </p>
       </div>
 
       <div className="notif-content">
@@ -179,7 +191,7 @@ const HeaderNotification = () => {
         {filteredOrganizerNotifs == 0 && organizerOnly && (
           <p>No notifications yet</p>
         )}
-        {!organizerOnly &&
+        {!organizerOnly && !newEvents &&
           filteredNotifs.map((notif, i) => {
             const event = findEventById(notif.eventid);
             if (notif.userid == userData.uid) {
@@ -196,7 +208,7 @@ const HeaderNotification = () => {
               );
             }
           })}
-        {userData.user_type === "organizer" &&
+        {userData.user_type === "organizer" && !newEvents &&
           filteredOrganizerNotifs.map((notif, i) => {
             const event = findEventById(notif.eventid);
             return (
@@ -211,6 +223,21 @@ const HeaderNotification = () => {
               />
             );
           })}
+        {newEvents == true &&
+          allEvents.map((event, i) => {
+            return (
+              <HeaderNotif
+                key={i}
+                title={event.eventname}
+                description={getEventStatus(event)}
+                isRead={0}
+                status={""}
+                notif={"event"}
+                event={event}
+              />
+            );
+          })
+        }
       </div>
     </div>
   );

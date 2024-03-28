@@ -7,7 +7,7 @@ const LandingPage = () => {
   const [index, setIndex] = useState(0);
 
   const [textArray] =  useState([
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero, non neque! Temporibus beatae asperiores culpa in! Quam ducimus autem error quae aliquid, labore tempora molestias. Ex cumque assumenda ullam tempore?",
+    "Join the Metro Events and go to cool parties and activities, or you can plan your events and have fun together.",
   ]);
 
   useEffect(() => {
