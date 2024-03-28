@@ -13,7 +13,8 @@ import { UserContext } from "../../../Context/LoginContext";
 import EventReviews from "../EventReviews/EventReviews";
 
 const ExpandedEvent = () => {
-  const { currentEvent, myEvents, fetchMyEvents } = useContext(EventContext);
+  const { currentEvent, myEvents, fetchMyEvents, fetchAllEvents } =
+    useContext(EventContext);
   const [eventStatus, setEventStatus] = useState("");
   const { userData } = useContext(UserContext);
   const [isHovered, setIsHovered] = useState(false);
@@ -55,7 +56,13 @@ const ExpandedEvent = () => {
       // setIsLoading(false); // Set loading state to false after request completes
     }
   };
+
+  const handleClick = () => {
+    setIsClicked(true);
+  };
+
   const upvoteEvent = async () => {
+    handleClick();
     if (isHovered) {
       try {
         const response = await axios.put(
@@ -70,12 +77,17 @@ const ExpandedEvent = () => {
           }
         );
         const result = await response.data;
-        console.log("myresult" + result);
+        console.log(result);
+        fetchAllEvents();
       } catch (error) {
         console.error("Error upvoting event:", error);
       }
     }
   };
+
+  useEffect(() => {
+    fetchAllEvents();
+  }, []);
 
   useEffect(() => {
     myEvents.forEach((event) => {
@@ -101,7 +113,6 @@ const ExpandedEvent = () => {
                 onMouseLeave={() => setIsHovered(false)}
                 onClick={() => {
                   upvoteEvent();
-                  setIsClicked(true);
                 }}
               />
             ) : (
@@ -111,7 +122,6 @@ const ExpandedEvent = () => {
                 onMouseLeave={() => setIsHovered(false)}
                 onClick={() => {
                   upvoteEvent();
-                  setIsClicked(true);
                 }}
               />
             )}
