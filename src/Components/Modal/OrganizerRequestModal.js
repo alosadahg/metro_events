@@ -31,14 +31,23 @@ const OrganizerRequestModal = () => {
     <div className="content OrganizerRequestModal">
       <h4>Request Form</h4>
       <form action="">
-        <div>
+        {/* <div>
           <label htmlFor="">Description</label>
           <input type="text" />
         </div>{" "}
         <div>
           <label htmlFor="">Description</label>
           <input type="text" />
-        </div>
+        </div> */}
+        <p>Upon approval, gains additional privileges</p>
+        <ul>
+          <li>Can create events of any type</li>
+          <li>
+            Reviews requests from users interested in joining their events
+          </li>
+          <li>Accepts or declines requests from users to join events</li>
+          <li>Manages event details and participant lists</li>
+        </ul>
         <button onClick={(e) => updateOrganizerStatus(e)}>
           Submit Request
         </button>

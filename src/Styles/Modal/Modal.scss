@@ -16,6 +16,11 @@
     border-radius: 20px;
   }
   .OrganizerRequestModal {
+    ul {
+      li {
+        list-style-type: disc;
+      }
+    }
     form,
     div {
       display: flex;
@@ -30,6 +35,12 @@
         cursor: pointer;
         outline: none;
         border: none;
+      }
+
+      button:hover {
+        background-color: $faded-blue;
+        color: white;
+        transition: 0.2s;
       }
     }
   }
