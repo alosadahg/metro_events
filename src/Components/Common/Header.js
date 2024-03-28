@@ -13,7 +13,8 @@ const Header = () => {
   const [isNotifClicked, setIsNotifClicked] = useState(false);
   const [isUserDropdown, setIsUserDropdown] = useState(false);
 
-  const { userData, setUserData } = useContext(UserContext);
+  const { userData, setUserData, setLoggedState, loggedState } =
+    useContext(UserContext);
   const { setAllEvents } = useContext(EventContext);
   const { userID } = useParams();
 
@@ -88,7 +89,16 @@ const Header = () => {
               )}
 
               <Link to={"/login"}>
-                <li>Logout</li>
+                <li
+                  onClick={() => {
+                    setLoggedState({
+                      ...loggedState,
+                      isLoggedIn: false,
+                    });
+                  }}
+                >
+                  Logout
+                </li>
               </Link>
             </ul>
           )}

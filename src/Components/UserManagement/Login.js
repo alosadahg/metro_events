@@ -17,7 +17,8 @@ import { UserContext } from "../../Context/LoginContext";
 const defaultTheme = createTheme();
 
 const Login = () => {
-  const {userData, setUserData} = useContext(UserContext);
+  const { userData, setUserData, setLoggedState, loggedState } =
+    useContext(UserContext);
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -49,8 +50,18 @@ const Login = () => {
         setError("Invalid email or password");
       } else if (user && credsNotEmpty) {
         if (user.user_type === "admin") {
+          setLoggedState({
+            ...loggedState,
+            userType: "admin",
+            isLoggedIn: true,
+          });
           navigate("/dashboardadmin");
         } else {
+          setLoggedState({
+            ...loggedState,
+            userType: "user",
+            isLoggedIn: true,
+          });
           setUserData(user);
           navigate(`/event-discovery/${user.uid}`);
           // navigate(`/event-discovery`);
