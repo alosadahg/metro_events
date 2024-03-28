@@ -63,7 +63,7 @@ const Thumbnail = ({ thumbnail, date, title, description, event, upvotes }) => {
 
             <div className="upvotes">
               <ArrowDropUpIcon />
-              {upvotes}
+              {upvotes ? upvotes : 0}
             </div>
           </div>
           <div className="description">

@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { UserContext } from "../../Context/LoginContext";
 import axios from "axios";
+import { EventContext } from "../../Context/EventContext";
 
 const CreateEventModal = ({ open, handleClose }) => {
   const [eventName, setEventName] = useState("");
@@ -16,9 +17,9 @@ const CreateEventModal = ({ open, handleClose }) => {
   const [location, setLocation] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
   const { userData } = useContext(UserContext);
+  const { fetchAllEvents } = useContext(EventContext);
 
   // Function to handle form submission
   const handleSubmit = () => {
@@ -67,7 +68,9 @@ const CreateEventModal = ({ open, handleClose }) => {
       endDate.length > 0 &&
       imageUrl.length > 0
     ) {
+      console.log("all fields filled");
       submitEvent();
+      fetchAllEvents();
     } else {
       alert("Please fill in all fields");
       return;
@@ -76,17 +79,17 @@ const CreateEventModal = ({ open, handleClose }) => {
     handleClose();
   };
 
-  // Function to handle file input change
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setImage(file);
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    let month = (date.getMonth() + 1).toString();
+    let day = date.getDate().toString();
 
-    // Display the selected image
-    const reader = new FileReader();
-    reader.onload = () => {
-      setImageUrl(reader.result);
-    };
-    reader.readAsDataURL(file);
+    // Pad single digits with a leading zero
+    month = month.length === 1 ? "0" + month : month;
+    day = day.length === 1 ? "0" + day : day;
+
+    return `${year}-${month}-${day}`;
   };
 
   return (
@@ -122,22 +125,38 @@ const CreateEventModal = ({ open, handleClose }) => {
         <TextField
           margin="dense"
           label="Start Date"
-          type="text"
+          type="date"
           fullWidth
           value={startDate}
-          onChange={(e) => setStartDate(e.target.value)}
+          onChange={(e) => {
+            setStartDate(formatDate(e.target.value));
+          }}
+          InputLabelProps={{
+            shrink: true,
+          }}
         />
         <TextField
           margin="dense"
           label="End Date"
-          type="text"
+          type="date"
           fullWidth
           value={endDate}
-          onChange={(e) => setEndDate(e.target.value)}
+          onChange={(e) => {
+            setEndDate(formatDate(e.target.value));
+          }}
+          InputLabelProps={{
+            shrink: true,
+            placeholder: "yyyy-mm-dd",
+          }}
         />
-        <div style={{ marginTop: "20px" }}>
-          <input type="file" accept="image/*" onChange={handleFileChange} />
-        </div>
+        <TextField
+          margin="dense"
+          label="Image URL"
+          type="text"
+          fullWidth
+          value={imageUrl}
+          onChange={(e) => setImageUrl(e.target.value)}
+        />
         {/* Display selected image */}
         {imageUrl && (
           <img
