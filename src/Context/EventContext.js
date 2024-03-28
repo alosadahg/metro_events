@@ -34,18 +34,19 @@ const EventProvider = ({ children }) => {
 
   const fetchMyEvents = async () => {
     try {
-      const response = await axios.get(
-        "https://events-api-iuta.onrender.com/attend-event/view-all"
+      const response = await axios.post(
+        "https://events-api-iuta.onrender.com/attend-event/view-by-user",
+        {
+          userid: userData.uid
+        },
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
       );
       // console.log(response);
-
-      let events = [];
-      response.data.forEach((event) => {
-        if (event.userid === userData.uid) {
-          events.push(event);
-        }
-      });
-      setMyEvents(events);
+      setMyEvents(response.data);
     } catch (error) {
       // setError(error);
       console.log(error);

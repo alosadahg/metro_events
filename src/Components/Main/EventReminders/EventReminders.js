@@ -17,7 +17,7 @@ const EventReminders = () => {
         {isReminderOpen && (
           <div className="content">
             <Link to={"/joined-events"}>
-              <p>You have {myEvents.length} upcomming events</p>
+              <p>You have {myEvents.length} upcoming events</p>
             </Link>
           </div>
         )}
