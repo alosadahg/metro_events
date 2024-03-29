@@ -20,55 +20,55 @@ const ParticipantModal = ({ eventid, open, handleClose }) => {
 
   // console.log(userData);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        // Fetch user requests
-        const userRequestsResponse = await axios.post(
-          "https://events-api-iuta.onrender.com/attend-event/view-by-organizer",
-          {
-            organizer: userData.uid,
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      // Fetch user requests
+      const userRequestsResponse = await axios.post(
+        "https://events-api-iuta.onrender.com/attend-event/view-by-organizer",
+        {
+          organizer: userData.uid,
+        },
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
           },
-          {
-            headers: {
-              "Content-Type": "application/x-www-form-urlencoded",
+        }
+      );
+
+      // Filter user requests by event id
+      const filteredUserRequests = userRequestsResponse.data.filter(
+        (request) =>
+          request.eventid === eventID && request.status === "interested"
+      );
+
+      // Fetch participants based on filtered user requests
+      const participantsData = await Promise.all(
+        filteredUserRequests.map(async (request) => {
+          const userResponse = await axios.post(
+            "https://events-api-iuta.onrender.com/user/view-by-id",
+            {
+              userid: request.userid,
             },
-          }
-        );
-
-        // Filter user requests by event id
-        const filteredUserRequests = userRequestsResponse.data.filter(
-          (request) =>
-            request.eventid === eventID && request.status === "interested"
-        );
-
-        // Fetch participants based on filtered user requests
-        const participantsData = await Promise.all(
-          filteredUserRequests.map(async (request) => {
-            const userResponse = await axios.post(
-              "https://events-api-iuta.onrender.com/user/view-by-id",
-              {
-                userid: request.userid,
+            {
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
               },
-              {
-                headers: {
-                  "Content-Type": "application/x-www-form-urlencoded",
-                },
-              }
-            );
-            return userResponse.data;
-          })
-        );
+            }
+          );
+          return userResponse.data;
+        })
+      );
 
-        setParticipants(participantsData);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+      setParticipants(participantsData);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     if (open) {
       fetchData();
     }
@@ -91,6 +91,7 @@ const ParticipantModal = ({ eventid, open, handleClose }) => {
 
       alert(userData.email + " is now approved to join the event.");
       console.log("Approved participant:", response.data);
+      fetchData();
       setLoading(true);
       setEventID(eventid);
     } catch (error) {
