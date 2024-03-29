@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import axios from "axios"; 
+import axios from "axios";
 import { EventContext } from "../../../Context/EventContext";
 import { UserContext } from "../../../Context/LoginContext";
 
@@ -40,11 +40,13 @@ const JoinedEvents = () => {
               eventid: eventId,
             },
             headers: {
-              "Content-Type": "application/x-www-form-urlencoded", 
+              "Content-Type": "application/x-www-form-urlencoded",
             },
           }
         );
-        setJoinedEvents(prevEvents => prevEvents.filter(event => event.eid !== eventId));
+        setJoinedEvents((prevEvents) =>
+          prevEvents.filter((event) => event.eid !== eventId)
+        );
         console.log(response);
         // fetchMyEvents();
       } else {

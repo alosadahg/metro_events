@@ -5,6 +5,10 @@
   list-style-type: none;
 }
 
+button.disabled {
+  background-color: #d0d0d0 !important;
+}
+
 $faded-blue: #455a71;
 $light-blue: #34b6ff;
 $faded-cyan: #90cedb;

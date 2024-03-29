@@ -86,9 +86,12 @@ const App = () => {
               />
             </Routes>
             <Modal />
-            {loggedState.userType === "user" && loggedState.isLoggedIn && (
-              <EventReminders />
-            )}
+            {
+              /*(loggedState.userType === "user" ||
+              loggedState.userType === "pending") */ loggedState.userType !==
+                "admin" &&
+                loggedState.isLoggedIn && <EventReminders />
+            }
           </BrowserRouter>
         </EventProvider>
         {/* </LoggedUserProvider> */}

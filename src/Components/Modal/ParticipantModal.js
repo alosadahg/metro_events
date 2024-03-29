@@ -18,6 +18,8 @@ const ParticipantModal = ({ eventid, open, handleClose }) => {
     setEventID(eventid);
   }, [eventid]);
 
+  // console.log(userData);
+
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -86,6 +88,8 @@ const ParticipantModal = ({ eventid, open, handleClose }) => {
           },
         }
       );
+
+      alert(userData.email + " is now approved to join the event.");
       console.log("Approved participant:", response.data);
       setLoading(true);
       setEventID(eventid);
@@ -183,9 +187,9 @@ const ParticipantModal = ({ eventid, open, handleClose }) => {
                             variant="contained"
                             color="primary"
                             style={{ marginRight: 10 }}
-                            onClick={() =>
-                              approveInterestedParticipant(participant.uid)
-                            }
+                            onClick={() => {
+                              approveInterestedParticipant(participant.uid);
+                            }}
                           >
                             Approve
                           </Button>

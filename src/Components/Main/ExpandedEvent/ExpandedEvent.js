@@ -20,12 +20,26 @@ const ExpandedEvent = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
 
+  const [alreadyJoined, setAlreadyJoined] = useState(false);
+
   // console.log(currentEvent);
   // console.log(myEvents);
   // console.log(eventStatus);
 
   // console.log(userData);
   // console.log(currentEvent);
+
+  // console.log();
+
+  useEffect(() => {
+    // setAlreadyJoined(currentEvent.participants.includes(userData.uid));
+    setAlreadyJoined(
+      currentEvent.participants !== null
+        ? currentEvent.participants.includes(userData.uid)
+        : false
+    );
+    // console.log(userData);
+  }, [currentEvent]);
 
   const handleJoininEvent = async () => {
     try {
@@ -172,7 +186,16 @@ const ExpandedEvent = () => {
       )}
 
       <button
-        onClick={() => handleJoininEvent()}
+        className={(alreadyJoined || isClicked) && "disabled"}
+        onClick={() => {
+          if (alreadyJoined || isClicked) {
+            alert(
+              "You have already joined this event. Thank you for participating."
+            );
+          } else {
+            handleJoininEvent();
+          }
+        }}
         style={{
           pointerEvents: eventStatus === "interested" ? "none" : "auto",
           backgroundColor:

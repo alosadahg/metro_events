@@ -63,11 +63,11 @@ const Header = () => {
           {isUserDropdown && (
             <ul className="user-dropdown">
               <li>Profile</li>
+              <Link to={"/joined-events"}>
+                <li>Joined events</li>
+              </Link>
               {userData.user_type !== "organizer" && (
                 <>
-                  <Link to={"/joined-events"}>
-                    <li>Joined events</li>
-                  </Link>
                   <li
                     onClick={() => {
                       setModalState({
