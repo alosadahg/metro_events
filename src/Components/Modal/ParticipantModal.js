@@ -12,6 +12,11 @@ const ParticipantModal = ({ eventid, open, handleClose }) => {
   const { userData } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
   const [participants, setParticipants] = useState([]);
+  const [eventID, setEventID] = useState(eventid);
+
+  useEffect(() => {
+    setEventID(eventid);
+  }, [eventid]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,7 +38,7 @@ const ParticipantModal = ({ eventid, open, handleClose }) => {
         // Filter user requests by event id
         const filteredUserRequests = userRequestsResponse.data.filter(
           (request) =>
-            request.eventid === eventid && request.status === "interested"
+            request.eventid === eventID && request.status === "interested"
         );
 
         // Fetch participants based on filtered user requests
@@ -65,7 +70,55 @@ const ParticipantModal = ({ eventid, open, handleClose }) => {
     if (open) {
       fetchData();
     }
-  }, [eventid, open, userData.uid]);
+  }, [eventID, open, userData.uid]);
+
+  const approveInterestedParticipant = async (participant) => {
+    try {
+      const response = await axios.put(
+        "https://events-api-iuta.onrender.com/attend-event/approved",
+        {
+          userid: participant,
+          eventid: eventID,
+        },
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      );
+      console.log("Approved participant:", response.data);
+      setLoading(true);
+      setEventID(eventid);
+    } catch (error) {
+      console.error("Error approving participant:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const rejectInterestedParticipant = async (participant) => {
+    try {
+      const response = await axios.delete(
+        "https://events-api-iuta.onrender.com/attend-event/cancel",
+        {
+          userid: participant,
+          eventid: eventID,
+        },
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      );
+      console.log("Rejected participant:", response.data);
+      setLoading(true);
+      setEventID(eventid);
+    } catch (error) {
+      console.error("Error approving participant:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <Dialog
@@ -154,6 +207,9 @@ const ParticipantModal = ({ eventid, open, handleClose }) => {
                             variant="contained"
                             color="primary"
                             style={{ marginRight: 10 }}
+                            onClick={() =>
+                              approveInterestedParticipant(participant.uid)
+                            }
                           >
                             Approve
                           </Button>
