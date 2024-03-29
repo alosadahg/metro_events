@@ -1,11 +1,12 @@
 import axios from "axios";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { UserContext } from "../../Context/LoginContext";
 
 const OrganizerRequestModal = () => {
   const { userData } = useContext(UserContext);
+  const [requestSubmitted, setRequestSubmitted] = useState(false);
 
-  // console.log(userData);
+  console.log("udata", userData);
   const updateOrganizerStatus = async (e) => {
     e.preventDefault();
     try {
@@ -22,7 +23,7 @@ const OrganizerRequestModal = () => {
           },
         }
       );
-      console.log(response.data);
+      console.log("test", response.data);
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
@@ -48,7 +49,23 @@ const OrganizerRequestModal = () => {
           <li>Accepts or declines requests from users to join events</li>
           <li>Manages event details and participant lists</li>
         </ul>
-        <button onClick={(e) => updateOrganizerStatus(e)}>
+        {(requestSubmitted || userData.user_type === "pending") && (
+          <p className="request-approval-text">
+            You have submitted a request. Awaiting approval.
+          </p>
+        )}
+        <button
+          onClick={(e) => {
+            updateOrganizerStatus(e);
+            setRequestSubmitted(true);
+
+            if (requestSubmitted || userData.user_type === "pending") {
+              alert(
+                "You have already sent a request. Please wait for the approval."
+              );
+            }
+          }}
+        >
           Submit Request
         </button>
       </form>

@@ -16,6 +16,12 @@
     border-radius: 20px;
   }
   .OrganizerRequestModal {
+    .request-approval-text {
+      background-color: rgb(23, 115, 125);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
     ul {
       li {
         list-style-type: disc;
