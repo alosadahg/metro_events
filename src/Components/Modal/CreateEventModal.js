@@ -94,7 +94,7 @@ const CreateEventModal = ({ open, handleClose }) => {
 
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>Create Event</DialogTitle>
+      <DialogTitle fontSize={25}>Create Event</DialogTitle>
       <DialogContent>
         {/* Form fields */}
         <TextField
@@ -111,6 +111,8 @@ const CreateEventModal = ({ open, handleClose }) => {
           label="Description"
           type="text"
           fullWidth
+          multiline
+          rows={4} // Adjust the number of visible rows as needed
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />

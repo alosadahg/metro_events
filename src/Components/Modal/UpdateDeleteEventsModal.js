@@ -1,7 +1,5 @@
 import React from 'react';
-import Modal from '@mui/material/Modal';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
+import { Modal, Box, Button, TextField, Grid } from '@mui/material';
 
 const UpdateDeleteEventsModal = ({ isModalOpen, closeForm, updatedEvent, handleInputChange, updateEvent, deleteEvent }) => {
   return (
@@ -11,76 +9,73 @@ const UpdateDeleteEventsModal = ({ isModalOpen, closeForm, updatedEvent, handleI
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Box sx={{ borderRadius: '10px', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 400, bgcolor: 'background.paper', boxShadow: 24, p: 4 }}>
+      <Box sx={{ borderRadius: '10px', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '40%', bgcolor: 'background.paper', boxShadow: 24, p: 4 }}>
         <form>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-            <label htmlFor="eventname">Event Name:</label>
-            <input
-              type="text"
+            <h3>Edit Event</h3>
+            <TextField
               id="eventname"
-              name="eventname"
+              label="Event Name"
               value={updatedEvent.eventname}
               onChange={handleInputChange}
-              placeholder="Event Name"
+              variant="outlined"
             />
-            <label htmlFor="description">Description:</label>
-            <input
-              type="text"
+            <TextField
               id="description"
-              name="description"
+              label="Description"
               value={updatedEvent.description}
               onChange={handleInputChange}
-              placeholder="Description"
+              multiline  // Set to true for multiline input
+              rows={4}    // Adjust the number of visible rows as needed
+              variant="outlined"
             />
-            <label htmlFor="location">Location:</label>
-            <input
-              type="text"
+            <TextField
               id="location"
-              name="location"
+              label="Location"
               value={updatedEvent.location}
               onChange={handleInputChange}
-              placeholder="Location"
+              variant="outlined"
             />
-            <label htmlFor="startdate">Start Date:</label>
-            <input
-              type="text"
+            <TextField
               id="startdate"
-              name="startdate"
+              label="Start Date"
               value={updatedEvent.startdate}
               onChange={handleInputChange}
-              placeholder="Start Date (yyyy-mm-dd)"
+              variant="outlined"
             />
-            <label htmlFor="enddate">End Date:</label>
-            <input
-              type="text"
+            <TextField
               id="enddate"
-              name="enddate"
+              label="End Date"
               value={updatedEvent.enddate}
               onChange={handleInputChange}
-              placeholder="End Date (yyyy-mm-dd)"
+              variant="outlined"
             />
-            <label htmlFor="status">Status:</label>
-            <input
-              type="text"
+            <TextField
               id="status"
-              name="status"
+              label="Status"
               value={updatedEvent.status}
               onChange={handleInputChange}
-              placeholder="Status (ongoing, upcoming, cancelled, finished)"
+              variant="outlined"
             />
           </div>
           <br />
-          <div style={{ display: 'flex', gap: '10px' }}>
-            <Button variant="contained" color="primary" onClick={updateEvent}>
-              Update
-            </Button>
-            <Button variant="contained" color="secondary" onClick={deleteEvent}>
-              Delete
-            </Button>
-            <Button variant="contained" onClick={closeForm}>
-              Cancel
-            </Button>
-          </div>
+          <Grid container justifyContent="flex-end" spacing={2}>
+            <Grid item>
+              <Button variant="contained" color="primary" onClick={updateEvent}>
+                Update
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button variant="contained" color="secondary" onClick={deleteEvent} style={{ background: "#D0312D" }}>
+                Delete
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button variant="contained" onClick={closeForm}>
+                Cancel
+              </Button>
+            </Grid>
+          </Grid>
         </form>
       </Box>
     </Modal>

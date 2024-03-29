@@ -148,14 +148,14 @@ export default function OrganizerRequest(props) {
                   <TableCell align="center">
                     <Button variant="contained" color="primary" onClick={() => handleApprove(row.email)}>Approve</Button>
                     <span style={{ margin: '0 5px' }}></span> {/* Add a gap between buttons */}
-                    <Button variant="contained" color="secondary" onClick={() => handleReject(row.email)}>Reject</Button>
+                    <Button style={{ background: "#D0312D" }} variant="contained" color="secondary" onClick={() => handleReject(row.email)}>Reject</Button>
                   </TableCell>
                 )}
                 {props.parent === 'user' && (
                   <TableCell align="center">
                     <Button variant="contained" color="primary" onClick={() => handleUpdate(row)}>Update</Button>
                     <span style={{ margin: '0 5px' }}></span> {/* Add a gap between buttons */}
-                    <Button variant="contained" color="secondary" onClick={() => handleDelete(row)}>Delete</Button>
+                    <Button style={{ background: "#D0312D" }} variant="contained" color="secondary" onClick={() => handleDelete(row)}>Delete</Button>
                   </TableCell>
                 )}
                 {isFormOpen && (
