@@ -37,7 +37,7 @@ const EventProvider = ({ children }) => {
       const response = await axios.post(
         "https://events-api-iuta.onrender.com/attend-event/view-by-user",
         {
-          userid: userData.uid
+          userid: userData.uid,
         },
         {
           headers: {

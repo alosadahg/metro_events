@@ -5,8 +5,20 @@ import { EventContext } from "../../../Context/EventContext";
 import { Link } from "react-router-dom";
 
 const EventReminders = () => {
-  const { myEvents, fetchMyEvents } = useContext(EventContext);
   const [isReminderOpen, setIsReminderOpen] = useState(false);
+  const { myEvents, allEvents, fetchMyEvents } = useContext(EventContext);
+  const [joinedEvents, setJoinedEvents] = useState([]);
+
+  console.log(myEvents);
+
+  useEffect(() => {
+    if (myEvents.length > 0) {
+      let myEventsArray = allEvents.filter((event) =>
+        myEvents.some((myEvent) => myEvent.eventid === event.eid)
+      );
+      setJoinedEvents(myEventsArray);
+    }
+  }, [myEvents, allEvents]);
 
   useEffect(() => {
     fetchMyEvents();
@@ -17,7 +29,7 @@ const EventReminders = () => {
         {isReminderOpen && (
           <div className="content">
             <Link to={"/joined-events"}>
-              <p>You have {myEvents.length} upcoming events</p>
+              <p>You have {joinedEvents.length} upcoming events</p>
             </Link>
           </div>
         )}
@@ -25,7 +37,7 @@ const EventReminders = () => {
           className="icon-container"
           onClick={() => setIsReminderOpen(!isReminderOpen)}
         >
-          <p className="number">{myEvents.length}</p>
+          <p className="number">{joinedEvents.length}</p>
           <FontAwesomeIcon className="icon" icon={faNoteSticky} />
         </div>
       </div>
