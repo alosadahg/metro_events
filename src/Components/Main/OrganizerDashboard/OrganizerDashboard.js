@@ -5,6 +5,7 @@ import CreateEventModal from "../../Modal/CreateEventModal";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { UserContext } from "../../../Context/LoginContext";
 import { EventContext } from "../../../Context/EventContext";
+import axios from "axios";
 
 const OrganizerDashboard = () => {
   const [showParticipantModal, setShowParticipantModal] = useState(false);
@@ -12,6 +13,7 @@ const OrganizerDashboard = () => {
   const [organizerEvents, setOrganizerEvents] = useState([]);
   const { allEvents, fetchAllEvents } = useContext(EventContext);
   const { userData } = useContext(UserContext);
+  const [eventid, setEventID] = useState("");
 
   const handleParticipantModalOpen = () => {
     setShowParticipantModal(true);
@@ -86,7 +88,10 @@ const OrganizerDashboard = () => {
                   <td>{event.status}</td>
                   <td>
                     <Button
-                      onClick={handleParticipantModalOpen}
+                      onClick={() => {
+                        setEventID(event.eid);
+                        handleParticipantModalOpen();
+                      }}
                       style={{
                         backgroundColor: "#455a71",
                         color: "#fff",
@@ -113,6 +118,7 @@ const OrganizerDashboard = () => {
       </table>
 
       <ParticipantModal
+        eventid={eventid}
         open={showParticipantModal}
         handleClose={handleParticipantModalClose}
       />
