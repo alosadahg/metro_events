@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -11,7 +11,7 @@ import { UserContext } from "../../Context/LoginContext";
 import axios from "axios";
 import { EventContext } from "../../Context/EventContext";
 
-const CreateEventModal = ({ open, handleClose }) => {
+const CreateEventModal = ({ open, handleClose, onCreateEvent }) => {
   const [eventName, setEventName] = useState("");
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
@@ -19,7 +19,7 @@ const CreateEventModal = ({ open, handleClose }) => {
   const [endDate, setEndDate] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const { userData } = useContext(UserContext);
-  const { fetchAllEvents } = useContext(EventContext);
+  const { fetchAllEvents, fetchMyEvents } = useContext(EventContext);
 
   // Function to handle form submission
   const handleSubmit = () => {
@@ -55,6 +55,7 @@ const CreateEventModal = ({ open, handleClose }) => {
         );
 
         console.log(response.data);
+        onCreateEvent(response.data);
       } catch (error) {
         console.error("Error creating event:", error);
       }
@@ -70,6 +71,7 @@ const CreateEventModal = ({ open, handleClose }) => {
     ) {
       console.log("all fields filled");
       submitEvent();
+      fetchMyEvents();
       fetchAllEvents();
     } else {
       alert("Please fill in all fields");

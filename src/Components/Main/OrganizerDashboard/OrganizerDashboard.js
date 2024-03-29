@@ -1,16 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Button } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
 import ParticipantModal from "../../Modal/ParticipantModal";
 import CreateEventModal from "../../Modal/CreateEventModal";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { UserContext } from "../../../Context/LoginContext";
 import { EventContext } from "../../../Context/EventContext";
 import axios from "axios";
-import UpdateDeleteEventsModal from '../../Modal/UpdateDeleteEventsModal'; // Import UpdateDeleteEventsModal
+import UpdateDeleteEventsModal from "../../Modal/UpdateDeleteEventsModal"; // Import UpdateDeleteEventsModal
 
 const OrganizerDashboard = () => {
   const [events, setEvents] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [showParticipantModal, setShowParticipantModal] = useState(false);
   const [showCreateEventModal, setShowCreateEventModal] = useState(false);
   const [organizerEvents, setOrganizerEvents] = useState([]);
@@ -20,15 +20,15 @@ const OrganizerDashboard = () => {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [updatedEvent, setUpdatedEvent] = useState({
-    eid: '',
-    eventname: '',
-    organizer: '',
-    description: '',
-    location: '',
-    startdate: '',
-    enddate: '',
-    status: '',
-    thumbnail: ''
+    eid: "",
+    eventname: "",
+    organizer: "",
+    description: "",
+    location: "",
+    startdate: "",
+    enddate: "",
+    status: "",
+    thumbnail: "",
   });
 
   const handleParticipantModalOpen = () => {
@@ -48,10 +48,28 @@ const OrganizerDashboard = () => {
   };
 
   useEffect(() => {
-    setOrganizerEvents(
-      allEvents.filter((event) => event.organizer === userData.uid)
-    );
+    fetchData();
   }, []);
+
+  const fetchData = async () => {
+    try {
+      setIsLoading(true);
+      await fetchAllEvents();
+      setOrganizerEvents(
+        allEvents.filter((event) => event.organizer === userData.uid)
+      );
+    } catch (error) {
+      console.error("Error fetching events:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const createEvent = (newEvent) => {
+    // Update local state with the newly added event
+    console.log("New Event:", newEvent);
+    setOrganizerEvents((prevEvents) => [...prevEvents, newEvent]);
+  };
 
   const openForm = (event) => {
     setSelectedEvent(event);
@@ -76,7 +94,7 @@ const OrganizerDashboard = () => {
     try {
       setIsLoading(true);
       console.log("Updating event:", updatedEvent);
-  
+
       const requestBody = {
         eid: updatedEvent.eid,
         eventname: updatedEvent.eventname,
@@ -86,26 +104,28 @@ const OrganizerDashboard = () => {
         startdate: updatedEvent.startdate,
         enddate: updatedEvent.enddate,
         status: updatedEvent.status,
-        thumbnail: updatedEvent.thumbnail
+        thumbnail: updatedEvent.thumbnail,
       };
-  
+
       const response = await axios.put(
         "https://events-api-iuta.onrender.com/event/update-event-info",
         requestBody,
         {
           headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-          }
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
         }
       );
-  
+
       console.log("Update Event Response:", response.data);
-  
+
       if (response.status === 200) {
         // Update local events state with the updated event
         setOrganizerEvents((prevEvents) =>
           prevEvents.map((event) =>
-            event.eid === updatedEvent.eid ? { ...event, ...updatedEvent } : event
+            event.eid === updatedEvent.eid
+              ? { ...event, ...updatedEvent }
+              : event
           )
         );
         closeForm();
@@ -120,7 +140,7 @@ const OrganizerDashboard = () => {
       setIsLoading(false);
     }
   };
-  
+
   const deleteEvent = async () => {
     try {
       setIsLoading(true);
@@ -128,21 +148,21 @@ const OrganizerDashboard = () => {
         const requestBody = {
           eventid: selectedEvent.eid,
         };
-  
+
         console.log("Request Body:", requestBody);
-  
+
         const response = await axios.delete(
           "https://events-api-iuta.onrender.com/event/delete",
           {
             headers: {
-              "Content-Type": "application/json"
+              "Content-Type": "application/json",
             },
-            params: requestBody 
+            params: requestBody,
           }
         );
-  
+
         console.log("Delete Event Response:", response.data);
-  
+
         if (response.data === 1) {
           console.log("Event successfully deleted from the database.");
           // Update local events state by filtering out the deleted event
@@ -164,7 +184,7 @@ const OrganizerDashboard = () => {
     } finally {
       setIsLoading(false);
     }
-  };  
+  };
 
   return (
     <div className="JoinedEvents">
@@ -184,68 +204,72 @@ const OrganizerDashboard = () => {
           Create Event
         </Button>
       </h4>
-      <table>
-        <thead style={{ textAlign: "center" }}>
-          <tr>
-            <th>Event ID</th>
-            <th>Event Name</th>
-            <th>Description</th>
-            <th>Location</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Status</th>
-            <th style={{ paddingLeft: "90px" }}>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {organizerEvents &&
-            organizerEvents.map((event) => {
-              return (
-                <tr key={event.eid}>
-                  <td className="event-id">{event.eid}</td>
-                  <td>{event.eventname}</td>
-                  <td
-                    style={{
-                      width: "250px",
-                    }}
-                  >
-                    {event.description}
-                  </td>
-                  <td>{event.location}</td>
-                  <td className="dates">{event.startdate}</td>
-                  <td className="dates">{event.enddate}</td>
-                  <td>{event.status}</td>
-                  <td>
-                    <Button
-                      onClick={() => {
-                        setEventID(event.eid);
-                        handleParticipantModalOpen();
-                      }}
+      {isLoading ? (
+        <CircularProgress />
+      ) : (
+        <table>
+          <thead style={{ textAlign: "center" }}>
+            <tr>
+              <th>Event ID</th>
+              <th>Event Name</th>
+              <th>Description</th>
+              <th>Location</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>Status</th>
+              <th style={{ paddingLeft: "90px" }}>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {organizerEvents &&
+              organizerEvents.map((event) => {
+                return (
+                  <tr key={event.eid}>
+                    <td className="event-id">{event.eid}</td>
+                    <td>{event.eventname}</td>
+                    <td
                       style={{
-                        backgroundColor: "#455a71",
-                        color: "#fff",
-                        width: "120px",
+                        width: "250px",
                       }}
                     >
-                      Participants
-                    </Button>
-                    <Button
-                      style={{
-                        width: "5px",
-                        marginLeft: "10px",
-                        backgroundColor: "#455a71",
-                        color: "#fff",
-                      }}
-                      onClick={() => openForm(event)} // Open modal on button click
-                    >
-                      <SettingsIcon />
-                    </Button>
-                  </td>
-                </tr>
-              );
-            })}
-        </tbody>
-      </table>
+                      {event.description}
+                    </td>
+                    <td>{event.location}</td>
+                    <td className="dates">{event.startdate}</td>
+                    <td className="dates">{event.enddate}</td>
+                    <td>{event.status}</td>
+                    <td>
+                      <Button
+                        onClick={() => {
+                          setEventID(event.eid);
+                          handleParticipantModalOpen();
+                        }}
+                        style={{
+                          backgroundColor: "#455a71",
+                          color: "#fff",
+                          width: "120px",
+                        }}
+                      >
+                        Participants
+                      </Button>
+                      <Button
+                        style={{
+                          width: "5px",
+                          marginLeft: "10px",
+                          backgroundColor: "#455a71",
+                          color: "#fff",
+                        }}
+                        onClick={() => openForm(event)} // Open modal on button click
+                      >
+                        <SettingsIcon />
+                      </Button>
+                    </td>
+                  </tr>
+                );
+              })}
+          </tbody>
+        </table>
+      )}
 
       <ParticipantModal
         eventid={eventid}
@@ -256,6 +280,7 @@ const OrganizerDashboard = () => {
       <CreateEventModal
         open={showCreateEventModal}
         handleClose={handleCreateEventModalClose}
+        onCreateEvent={createEvent}
       />
 
       {/* Modal for updating and deleting events */}

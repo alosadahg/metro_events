@@ -96,30 +96,6 @@ const ParticipantModal = ({ eventid, open, handleClose }) => {
     }
   };
 
-  const rejectInterestedParticipant = async (participant) => {
-    try {
-      const response = await axios.delete(
-        "https://events-api-iuta.onrender.com/attend-event/cancel",
-        {
-          userid: participant,
-          eventid: eventID,
-        },
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        }
-      );
-      console.log("Rejected participant:", response.data);
-      setLoading(true);
-      setEventID(eventid);
-    } catch (error) {
-      console.error("Error approving participant:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
     <Dialog
       open={open}
@@ -212,13 +188,6 @@ const ParticipantModal = ({ eventid, open, handleClose }) => {
                             }
                           >
                             Approve
-                          </Button>
-                          <Button
-                            variant="contained"
-                            color="secondary"
-                            style={{ background: "#D0312D" }}
-                          >
-                            Decline
                           </Button>
                         </td>
                       </tr>

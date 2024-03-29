@@ -9,10 +9,14 @@ const EventDiscovery = () => {
   const [sortedEvents, setSortedEvents] = useState([]);
 
   useEffect(() => {
+    console.log("Fetching events");
     fetchMyEvents();
     fetchAllEvents();
-    setSortedEvents(allEvents.sort((a, b) => b.upvotes - a.upvotes));
   }, []);
+
+  useEffect(() => {
+    setSortedEvents(allEvents.sort((a, b) => b.upvotes - a.upvotes));
+  }, [allEvents]);
 
   return (
     <div className="EventDiscovery">
